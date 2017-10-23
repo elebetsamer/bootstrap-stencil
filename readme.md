@@ -68,10 +68,10 @@ The lists below are meant to loosely follow the structure of the Bootstrap site.
     - [x] Breadcrumb Item
       - [x] Basic implementation
 - [ ] Buttons
-  - [ ] Basic implementation
+  - [x] Basic implementation
   - [ ] Isolate styles
   - [ ] Button types
-    - [ ] Button
+    - [x] Button
     - [ ] Input button
     - [ ] Link button
     - [ ] Outline button
