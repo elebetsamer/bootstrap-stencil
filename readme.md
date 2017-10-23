@@ -63,10 +63,10 @@ The lists below are meant to loosely follow the structure of the Bootstrap site.
   - [ ] Pill badge
   - [ ] Link badge
 - [ ] Breadcrumb
-  - [ ] Basic implementation
+  - [x] Basic implementation
   - [ ] Isolate styles
-    - [ ] Breadcrumb Item
-      - [ ] Basic implementation
+    - [x] Breadcrumb Item
+      - [x] Basic implementation
 - [ ] Buttons
   - [ ] Basic implementation
   - [ ] Isolate styles
