@@ -88,15 +88,15 @@ The lists below are meant to loosely follow the structure of the Bootstrap site.
   - [ ] Sizing
   - [ ] Vertical variation
 - [ ] Card
-  - [ ] Basic implementation
+  - [x] Basic implementation
   - [ ] Isolate styles
-  - [ ] Title
-  - [ ] Subtitle
-  - [ ] Top image cap
-  - [ ] Bottom image cap
-  - [ ] Card link
-  - [ ] Card header
-  - [ ] Card footer
+  - [x] Title
+  - [x] Subtitle
+  - [x] Top image cap
+  - [x] Bottom image cap
+  - [x] Card link
+  - [x] Card header
+  - [x] Card footer
   - [ ] Border cards
   - [ ] Card Groups
   - [ ] Card Decks
