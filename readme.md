@@ -58,7 +58,7 @@ The lists below are meant to loosely follow the structure of the Bootstrap site.
     - [ ] Add `closed.bs.alert` event
   - [ ] Isolate styles
 - [ ] Badge
-  - [ ] Basic implementation
+  - [x] Basic implementation
   - [ ] Isolate styles
   - [ ] Pill badge
   - [ ] Link badge
