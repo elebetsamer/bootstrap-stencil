@@ -48,10 +48,10 @@ The lists below are meant to loosely follow the structure of the Bootstrap site.
 ### Bootstrap components
 
 - [ ] Alerts
-  - [ ] Basic implementation
-  - [ ] Add `.alert-link` class to content links automatically. On by default.
+  - [x] Basic implementation
+  - [x] Add `.alert-link` class to content links automatically. On by default.
   - [ ] Add *Dismissing* functionality
-    - [ ] Basic dismiss implementation (WIP)
+    - [x] Basic dismiss implementation (WIP)
     - [ ] Animate dismissal
   - [ ] Add events
     - [ ] Add `close.bs.alert` event
