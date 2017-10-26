@@ -20,7 +20,7 @@
     "test.watch": "jest --watch --no-cache"
   },
   "dependencies": {
-    "@stencil/core": "next",
+    "@stencil/core": "latest",
     "bootstrap": "^4.0.0-beta"
   },
   "devDependencies": {
