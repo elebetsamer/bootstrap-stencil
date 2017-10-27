@@ -6,7 +6,9 @@ const yaml = require('js-yaml');
 const liquid = require('liquidjs');
 const marked = require('marked');
 const path = require('path');
-const { URL } = require('url');
+const {
+  URL
+} = require('url');
 
 const supportedLiquidFileTypes = ['.html', '.md'];
 
@@ -67,7 +69,7 @@ function copyFiles() {
     copyPath
   ];
 
-  globalConfig.exclude.forEach(function(excludedPath) {
+  globalConfig.exclude.forEach(function (excludedPath) {
     if (excludedPath.endsWith('/')) {
       globPatterns.push(`!${path.join(globalConfig.source, excludedPath.substring(0, excludedPath.length - 1))}`);
       globPatterns.push(`!${path.join(globalConfig.source, excludedPath, '**', '*')}`);
@@ -77,7 +79,7 @@ function copyFiles() {
   });
 
   globby(globPatterns).then(paths => {
-    paths.forEach(function(filePath) {
+    paths.forEach(function (filePath) {
       if (fs.lstatSync(filePath).isFile()) {
         let destinationPath;
 
@@ -104,7 +106,7 @@ function createLiquidEngine() {
     ]
   });
 
-  liquidEngine.registerFilter('absolute_url', function(input) {
+  liquidEngine.registerFilter('absolute_url', function (input) {
     if (input.startsWith('/')) {
       input = input.slice(1);
     }
@@ -133,21 +135,18 @@ function isSupportedLiquidFile(filename) {
 function processPages() {
   liquidContext.site.pages.forEach(function (page) {
     var context = _.cloneDeep(liquidContext);
-    var destPath = path.join(globalConfig.destination, page.filename);
+    var destPath = path.join(globalConfig.destination, page.url);
 
     context.page = page;
-
-    if (page.permalink) {
-      destPath = path.join(globalConfig.destination, page.url);
-      fs.ensureDirSync(path.join(globalConfig.destination, page.permalink));
-    }
 
     // We want to output html pages
     if (path.extname(destPath).toLowerCase() !== '.html') {
       destPath = destPath.replace(path.extname(destPath), '.html');
     }
 
-    console.info(`Processing page ${page.filename}, output to ${destPath}`);
+    fs.ensureDirSync(path.dirname(destPath));
+
+    console.info(`Processing page ${page.path}, output to ${destPath}`);
 
     // Set the layout to the default if there is one and the page layout wasn't set on the page directly.
     if (!page.layout && defaultPageLayout) {
@@ -162,23 +161,23 @@ function processPages() {
           .then(function (result) {
             context.content = result;
 
-            console.info(`Page ${page.filename} processed.`);
+            console.info(`Page ${page.path} processed.`);
 
             // Then we process the layout, using context.content to store the result of the processed page from above.
             liquidEngine
               .parseAndRender(layouts[page.layout], context)
               .then(function (layoutResult) {
-                console.info(`Page ${page.filename} and layout ${page.layout} processed.`);
+                console.info(`Page ${page.path} and layout ${page.layout} processed.`);
 
                 fs.writeFileSync(destPath, layoutResult, globalConfig.encoding);
-              }, function(error) {
+              }, function (error) {
                 console.error(error);
-              }).catch(function(error) {
+              }).catch(function (error) {
                 console.error(error);
               });
-          }, function(error) {
+          }, function (error) {
             console.error(error);
-          }).catch(function(error) {
+          }).catch(function (error) {
             console.error(error);
           });
       } else {
@@ -268,29 +267,32 @@ function readLayouts() {
 }
 
 function readPages() {
-  const pagesPath = path.join(globalConfig.source, '/_pages');
+  const pagesPath = path.join(globalConfig.source, '_pages');
+  const globPatterns = [];
 
-  fs.readdirSync(pagesPath).forEach(function (filename) {
-    if (isSupportedLiquidFile(filename)) {
-      try {
-        var contents = fs.readFileSync(path.join(pagesPath, filename), globalConfig.encoding);
-        var frontMatter = fm(contents);
-        var page = _.extend({}, frontMatter.attributes);
+  supportedLiquidFileTypes.forEach(function (value) {
+    globPatterns.push(path.join(globalConfig.source, '_pages', '**', `*${value}`));
+  });
 
-        page.contents = frontMatter.body;
-        page.filename = filename;
-        page.url = filename;
+  const paths = globby.sync(globPatterns);
 
-        if (page.permalink) {
-          page.url = path.join(page.permalink, 'index.html');
-        }
+  paths.forEach(function (filePath) {
+    try {
+      var contents = fs.readFileSync(filePath, globalConfig.encoding);
+      var frontMatter = fm(contents);
+      var page = _.extend({}, frontMatter.attributes);
 
-        liquidContext.site.pages.push(page);
+      page.contents = frontMatter.body;
+      page.path = filePath;
+      page.url = filePath.replace(pagesPath, '');
 
-        // layouts[filename.replace(path.extname(filename), '')] = contents;
-      } catch (e) {
-        console.error(e);
+      if (page.permalink) {
+        page.url = path.join(page.permalink, 'index.html');
       }
+
+      liquidContext.site.pages.push(page);
+    } catch (e) {
+      console.error(e);
     }
   });
 }
