@@ -139,11 +139,6 @@ function processPages() {
 
     context.page = page;
 
-    // We want to output html pages
-    if (path.extname(destPath).toLowerCase() !== '.html') {
-      destPath = destPath.replace(path.extname(destPath), '.html');
-    }
-
     fs.ensureDirSync(path.dirname(destPath));
 
     console.info(`Processing page ${page.path}, output to ${destPath}`);
@@ -269,6 +264,7 @@ function readLayouts() {
 function readPages() {
   const pagesPath = path.join(globalConfig.source, '_pages');
   const globPatterns = [];
+  const permalinkType = globalConfig.permalink;
 
   supportedLiquidFileTypes.forEach(function (value) {
     globPatterns.push(path.join(globalConfig.source, '_pages', '**', `*${value}`));
@@ -285,6 +281,18 @@ function readPages() {
       page.contents = frontMatter.body;
       page.path = filePath;
       page.url = filePath.replace(pagesPath, '');
+
+      // We want to output html pages
+      if (path.extname(page.url).toLowerCase() !== '.html') {
+        page.url = page.url.replace(path.extname(page.url), '.html');
+      }
+
+      // TODO: Add real processing of permalink patterns
+      if (permalinkType) {
+        if (permalinkType === 'pretty' && page.url !== '/index.html') {
+          page.url = page.url.replace(path.extname(page.url), '/index.html');
+        }
+      }
 
       if (page.permalink) {
         page.url = path.join(page.permalink, 'index.html');

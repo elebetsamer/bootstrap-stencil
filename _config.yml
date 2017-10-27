@@ -3,10 +3,12 @@ description: "Stencil components for the Bootstrap (v4) framework."
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 
+# Permalinks
+permalink: pretty
+
 # Build settings
 source: ./src/docs
 destination: ./docs
-markdown: kramdown
 exclude:
   - "**/*.sketch"
   - assets/favicons.zip
