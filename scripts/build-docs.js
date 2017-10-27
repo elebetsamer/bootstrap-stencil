@@ -88,6 +88,11 @@ function processPages() {
       fs.ensureDirSync(path.join(globalConfig.destination, page.permalink));
     }
 
+    // We want to output html pages
+    if (path.extname(destPath).toLowerCase() !== '.html') {
+      destPath = destPath.replace(path.extname(destPath), '.html');
+    }
+
     console.info(`Processing page ${page.filename}, output to ${destPath}`);
 
     // Set the layout to the default if there is one and the page layout wasn't set on the page directly.
