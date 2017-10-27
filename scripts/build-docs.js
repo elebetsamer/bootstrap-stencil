@@ -1,23 +1,37 @@
 const _ = require('lodash');
 const fs = require('fs-extra');
 const fm = require('front-matter');
+const globby = require('globby');
 const yaml = require('js-yaml');
 const liquid = require('liquidjs');
 const marked = require('marked');
 const path = require('path');
 const { URL } = require('url');
 
-const defaultEncoding = 'utf-8';
-const srcPath = './src/docs';
 const supportedLiquidFileTypes = ['.html', '.md'];
 
 var baseUrl = null;
 var defaultPageLayout = null;
 var globalConfig = {
   data_dir: '_data',
-  encoding: defaultEncoding,
+  encoding: 'UTF-8',
   includes_dir: '_includes',
-  layouts_dir: '_layouts'
+  layouts_dir: '_layouts',
+  // Exclude the default directory structure for Jekyll
+  exclude: [
+    '_config.yml',
+    '_drafts/',
+    '_includes/',
+    '_layouts/',
+    '_pages/',
+    '_posts/',
+    '_data/',
+    '_sass/',
+    '_site/',
+    '.jekyll-metadata'
+  ],
+  source: '.',
+  destination: './_site'
 };
 var layouts = [];
 var liquidEngine;
@@ -33,20 +47,60 @@ var liquidContext = {
 }
 
 readGlobalConfig();
+cleanDestination();
 readDataFiles();
 readLayouts();
 createLiquidEngine();
 readPages();
 processPages();
+copyFiles();
 
 // console.log(layouts);
+
+function cleanDestination() {
+  fs.emptyDirSync(globalConfig.destination);
+}
+
+function copyFiles() {
+  const copyPath = path.join(globalConfig.source, '**', '*');
+  const globPatterns = [
+    copyPath
+  ];
+
+  globalConfig.exclude.forEach(function(excludedPath) {
+    if (excludedPath.endsWith('/')) {
+      globPatterns.push(`!${path.join(globalConfig.source, excludedPath.substring(0, excludedPath.length - 1))}`);
+      globPatterns.push(`!${path.join(globalConfig.source, excludedPath, '**', '*')}`);
+    } else {
+      globPatterns.push(`!${path.join(globalConfig.source, excludedPath)}`);
+    }
+  });
+
+  globby(globPatterns).then(paths => {
+    paths.forEach(function(filePath) {
+      if (fs.lstatSync(filePath).isFile()) {
+        let destinationPath;
+
+        if (globalConfig.source.startsWith('./')) {
+          destinationPath = path.join(globalConfig.destination, filePath.replace(globalConfig.source.substring(2), ''));
+        } else if (globalConfig.source === '.') {
+          destinationPath = path.join(globalConfig.destination, filePath.replace(globalConfig.source.substring(2), ''));
+        } else {
+          destinationPath = path.join(globalConfig.destination, filePath.replace(globalConfig.source, ''));
+        }
+
+        fs.copySync(filePath, destinationPath);
+      }
+    });
+  });
+}
 
 function createLiquidEngine() {
   liquidEngine = new liquid({
     root: [
-      path.join(srcPath, '_layouts'),
-      path.join(srcPath, '_includes'),
-      path.join(srcPath, 'assets')
+      path.join(globalConfig.source, globalConfig.layouts_dir),
+      path.join(globalConfig.source, globalConfig.includes_dir),
+      path.join(globalConfig.source, 'assets')
     ]
   });
 
@@ -141,11 +195,11 @@ function processPages() {
 }
 
 function readDataFiles() {
-  const dataPath = path.join(srcPath, globalConfig.data_dir);
+  const dataPath = path.join(globalConfig.source, globalConfig.data_dir);
 
   fs.readdirSync(dataPath).forEach(function (filename) {
     try {
-      var data = yaml.safeLoad(fs.readFileSync(path.join(dataPath, filename), globalConfig.encoding || defaultEncoding));
+      var data = yaml.safeLoad(fs.readFileSync(path.join(dataPath, filename), globalConfig.encoding));
 
       liquidContext.site.data[filename.replace(path.extname(filename), '')] = data;
     } catch (e) {
@@ -155,10 +209,10 @@ function readDataFiles() {
 }
 
 function readGlobalConfig() {
-  const configPath = path.join(srcPath, '_config.yml');
+  const configPath = path.join(globalConfig.source, '_config.yml');
 
   try {
-    var config = yaml.safeLoad(fs.readFileSync(configPath, defaultEncoding));
+    var config = yaml.safeLoad(fs.readFileSync(configPath, globalConfig.encoding));
 
     config.baseurl = config.baseurl || '';
     config.url = config.url || '';
@@ -175,8 +229,15 @@ function readGlobalConfig() {
     //   config.baseurl = '/' + config.baseurl;
     // }
 
-    _.extend(globalConfig, config);
-    _.extend(liquidContext.site, config);
+
+    // The merge doesn't seem to work right, so we do it manually
+    let excludes = globalConfig.exclude.concat(config.exclude);
+
+    _.merge(globalConfig, config);
+    _.merge(liquidContext.site, config);
+
+    // The merge doesn't seem to work right, so we do it manually
+    globalConfig.exclude = excludes;
 
     if (config.defaults) {
       config.defaults.forEach(function (configDefault) {
@@ -191,12 +252,12 @@ function readGlobalConfig() {
 }
 
 function readLayouts() {
-  const layoutsPath = path.join(srcPath, globalConfig.layouts_dir);
+  const layoutsPath = path.join(globalConfig.source, globalConfig.layouts_dir);
 
   fs.readdirSync(layoutsPath).forEach(function (filename) {
     if (isSupportedLiquidFile(filename)) {
       try {
-        var contents = fs.readFileSync(path.join(layoutsPath, filename), globalConfig.encoding || defaultEncoding);
+        var contents = fs.readFileSync(path.join(layoutsPath, filename), globalConfig.encoding);
 
         layouts[filename.replace(path.extname(filename), '')] = contents;
       } catch (e) {
@@ -207,12 +268,12 @@ function readLayouts() {
 }
 
 function readPages() {
-  const pagesPath = path.join(srcPath, '/_pages');
+  const pagesPath = path.join(globalConfig.source, '/_pages');
 
   fs.readdirSync(pagesPath).forEach(function (filename) {
     if (isSupportedLiquidFile(filename)) {
       try {
-        var contents = fs.readFileSync(path.join(pagesPath, filename), globalConfig.encoding || defaultEncoding);
+        var contents = fs.readFileSync(path.join(pagesPath, filename), globalConfig.encoding);
         var frontMatter = fm(contents);
         var page = _.extend({}, frontMatter.attributes);
 
