@@ -30,7 +30,7 @@
     "js-lint-docs": "eslint --config js/tests/.eslintrc.json assets/js/ docs/ sw.js",
     "js-minify-docs": "uglifyjs --mangle --comments \"/^!/\" --output assets/js/docs.min.js assets/js/vendor/anchor.min.js assets/js/vendor/clipboard.min.js assets/js/vendor/holder.min.js assets/js/src/application.js assets/js/src/pwa.js",
     "serve": "stencil-dev-server",
-    "st:generate": "node scripts/st-generate.js",
+    "st-generate": "node build/st-generate.js",
     "start": "npm run dev",
     "test": "jest --no-cache",
     "test.watch": "jest --watch --no-cache",
