@@ -3,9 +3,11 @@ const fs = require('fs-extra');
 const fm = require('front-matter');
 const globby = require('globby');
 const yaml = require('js-yaml');
+const hljs = require('highlight.js');
 const liquid = require('liquidjs');
 const marked = require('marked');
 const path = require('path');
+const slug = require('slug')
 const {
   URL
 } = require('url');
@@ -122,6 +124,83 @@ function createLiquidEngine() {
   liquidEngine.registerFilter('normalize_whitespace', function (input) {
     return input.replace(/\s+/g, ' ').trim();
   });
+
+  liquidEngine.registerFilter('slugify', function (input) {
+    if (input) {
+      return slug(input, {
+        lower: true
+      });
+    }
+
+    return input;
+  });
+
+  // Implement a safer `first`, since the default liquidjs one fails if input is null/undefined
+  liquidEngine.registerFilter('first', function (input) {
+    if (input) {
+      return input[0];
+    }
+
+    return input;
+  });
+
+  // Implement a safer `last`, since the default liquidjs one fails if input is null/undefined
+  liquidEngine.registerFilter('last', function (input) {
+    if (input) {
+      return input[input.length - 1];
+    }
+
+    return input;
+  });
+
+  liquidEngine.registerTag('highlight', {
+    parse: function (tagToken, remainTokens) {
+      let params = tagToken.args + '';
+
+      if (params) {
+        let paramArray = params.split(' ');
+
+        if (paramArray.length > 1) {
+          throw new Error('Only a single parameter is accepted at this time. linenos are not supported yet. Usage: highlight langName');
+        }
+
+        this.lang = paramArray[0];
+      } else {
+        throw new Error(`You must provide a language to the highlight tag. Usage: highlight langName`);
+      }
+
+      this.templates = [];
+
+      var stream = liquidEngine.parser.parseStream(remainTokens);
+
+      stream
+        .on('template', (template) => {
+          this.templates.push(template);
+        })
+        .on("tag:endhighlight", () => {
+          stream.stop();
+        })
+        .on('end', (x) => {
+          throw new Error(`tag ${tagToken.raw} not closed`);
+        });
+
+      stream.start();
+    },
+    render: function (scope, hash) {
+      if (this.templates && this.templates.length > 0) {
+        return liquidEngine
+          .renderer
+          .renderTemplates(this.templates, scope)
+          .then((result) => {
+            let hljsResult = hljs.highlight(this.lang, result);
+
+            return Promise.resolve(`<pre><code class="hljs language-${this.lang}" data-lang="${this.lang}">${hljsResult.value.trimLeft().trimRight()}</code></pre>`);
+          });
+      } else {
+        return Promise.resolve(null);
+      }
+    }
+  });
 }
 
 function isSupportedLiquidFile(filename) {
@@ -154,6 +233,11 @@ function processPages() {
         liquidEngine
           .parseAndRender(page.contents, context)
           .then(function (result) {
+            // Convert content for markdown files to html
+            if (path.extname(page.url).toLowerCase() !== '.md') {
+              result = marked(result);
+            }
+
             context.content = result;
 
             console.info(`Page ${page.path} processed.`);
@@ -182,6 +266,11 @@ function processPages() {
       liquidEngine
         .parseAndRender(page.contents, context)
         .then(function (result) {
+          // Convert content for markdown files to html
+          if (path.extname(page.url).toLowerCase() !== '.md') {
+            result = marked(result);
+          }
+
           fs.writeFileSync(destPath, result, globalConfig.encoding);
         });
     }

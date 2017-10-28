@@ -8,12 +8,17 @@ permalink: pretty
 
 # Build settings
 source: ./src/docs
-destination: ./docs
+destination: ./_gh_pages
 exclude:
   - "**/*.sketch"
   - assets/favicons.zip
   - assets/scss/
 include: ['_pages']
+
+# Custom variables
+current_version: 0.0.1-alpha
+repo: https://github.com/elebetsamer/bootstrap-stencil
+issues: https://github.com/elebetsamer/bootstrap-stencil/issues
 
 defaults:
   -
