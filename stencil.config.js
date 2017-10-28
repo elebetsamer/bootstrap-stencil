@@ -1,5 +1,5 @@
 exports.config = {
-  namespace: 'bs-stencil',
+  namespace: 'bsstencil',
   generateDistribution: true,
   bundles: [
     { components: ['bs-alert'] },
