@@ -181,6 +181,92 @@ function createLiquidEngine() {
     return input;
   });
 
+  liquidEngine.registerFilter('toc_only', function (input) {
+    if (input) {
+      return getTOC(input);
+    }
+
+    return null;
+
+    // Parse HTML, returning an array of heading data
+    function getHeadings(src) {
+      const headerRegEx = /<h(\d)(\s*[^>]*)>([\s\S]+?)<\/h\1>/gi;
+
+      let headers = [];
+      let m;
+
+      while ((m = headerRegEx.exec(src)) !== null) {
+        let header = {
+          attrs: '',
+          id: '',
+          level: 0,
+          tag: '',
+          text: ''
+        };
+
+        // This is necessary to avoid infinite loops with zero-width matches
+        if (m.index === headerRegEx.lastIndex) {
+          headerRegEx.lastIndex++;
+        }
+
+        // The result can be accessed through the `m`-variable.
+        m.forEach((match, groupIndex) => {
+          if (groupIndex === 0) {
+            header.tag = match;
+          } else if (groupIndex === 1) {
+            header.level = Number(match);
+          } else if (groupIndex === 2) {
+            header.attrs = match;
+
+            if (match) {
+              let idMatch = /id="(\S+)"/gi.exec(match);
+
+              if (idMatch && idMatch.length === 2) {
+                header.id = idMatch[1];
+              }
+            }
+          } else if (groupIndex === 3) {
+            header.text = match;
+          }
+        });
+
+        if (header.id) {
+          headers.push(header);
+        }
+      }
+
+      return headers;
+    };
+
+    function getTOC(html) {
+      const headers = getHeadings(html);
+      let cursor = 0;
+      let levels = [];
+      let tocs = [''];
+
+      headers.forEach(function(header) {
+        while (header.level < levels[0]) {
+          levels.shift();
+          cursor++;
+        }
+
+        if (levels.length === 0 || header.level > levels[0]) {
+          levels.unshift(header.level);
+          header.depth = levels.length;
+          tocs[cursor] += '<ul>';
+          tocs.push('</li></ul>');
+        } else {
+          header.depth = levels.length;
+          tocs[cursor] += '</li>';
+        }
+
+        tocs[cursor] += `<li class="toc-entry toc-h${header.level}"><a href="#${header.id}">${header.text}</a>`;
+      });
+
+      return `<div class="toc">${tocs.join('')}</div>`;
+    };
+  });
+
   liquidEngine.registerTag('callout', {
     parse: function (tagToken, remainTokens) {
       let params = tagToken.args + '';
