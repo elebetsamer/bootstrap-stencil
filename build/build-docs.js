@@ -50,10 +50,34 @@ var liquidContext = {
   }
 }
 
-marked.setOptions({
-  highlight: function (code, lang) {
+var markedRenderer = new marked.Renderer();
+
+markedRenderer.code = function(code, lang) {
+  if (lang) {
     return getHighlightOutput(lang, code);
+  } else {
+    return `<pre><code>${code}</code></pre>`;
   }
+};
+
+// markedRenderer.html = function(html) {
+//   console.log('\n\n----- Marked html -----');
+//   console.log(html);
+//   console.log('-----------------------\n\n');
+
+//   return html;
+// };
+
+// markedRenderer.paragraph = function(text) {
+//   console.log('\n\n----- Marked paragraph -----');
+//   console.log(text);
+//   console.log('-----------------------\n\n');
+
+//   return text;
+// };
+
+marked.setOptions({
+  renderer: markedRenderer
 });
 
 readGlobalConfig();
@@ -157,6 +181,53 @@ function createLiquidEngine() {
     return input;
   });
 
+  liquidEngine.registerTag('callout', {
+    parse: function (tagToken, remainTokens) {
+      let params = tagToken.args + '';
+
+      if (params) {
+        let paramArray = params.split(' ');
+
+        if (paramArray.length > 1) {
+          throw new Error('Only a single parameter should be used with the callout tag. Usage: callout type');
+        }
+
+        this.theme = paramArray[0];
+      } else {
+        throw new Error(`You must provide a type to the callout tag. Usage: callout type`);
+      }
+
+      this.templates = [];
+
+      var stream = liquidEngine.parser.parseStream(remainTokens);
+
+      stream
+        .on('template', (template) => {
+          this.templates.push(template);
+        })
+        .on("tag:endcallout", () => {
+          stream.stop();
+        })
+        .on('end', (x) => {
+          throw new Error(`tag ${tagToken.raw} not closed`);
+        });
+
+      stream.start();
+    },
+    render: function (scope, hash) {
+      if (this.templates && this.templates.length > 0) {
+        return liquidEngine
+          .renderer
+          .renderTemplates(this.templates, scope)
+          .then((result) => {
+            return Promise.resolve(`<div class="docs-callout docs-callout-${this.theme}">${marked(result)}</div>`);
+          });
+      } else {
+        return Promise.resolve(null);
+      }
+    }
+  });
+
   liquidEngine.registerTag('highlight', {
     parse: function (tagToken, remainTokens) {
       let params = tagToken.args + '';
@@ -239,10 +310,19 @@ function createLiquidEngine() {
     },
     render: function (scope, hash) {
       if (this.templates && this.templates.length > 0) {
+        // console.log('\n\n----- liquid example tag render');
+        // this.templates.forEach((template) => {
+        //   console.log(template);
+        // });
+        // console.log('-----\n\n');
+
         return liquidEngine
           .renderer
           .renderTemplates(this.templates, scope)
           .then((result) => {
+            // console.log(result);
+            // console.log('-----\n\n');
+
             let output = `<div class="docs-example">${result}</div>\n<div class="docs-example-code">${getHighlightOutput(this.lang, result)}</div>`;
 
             return Promise.resolve(output);
@@ -257,7 +337,7 @@ function createLiquidEngine() {
 function getHighlightOutput(lang, input) {
   let hljsResult = hljs.highlight(lang, input);
 
-  return `<pre><code class="hljs language-${lang}" data-lang="${lang}">${hljsResult.value.trim()}</code></pre>`;
+  return `<div class="highlight"><pre><code class="language-${lang}" data-lang="${lang}">${hljsResult.value.trim()}</code></pre></div>`;
 }
 
 function isSupportedLiquidFile(filename) {
