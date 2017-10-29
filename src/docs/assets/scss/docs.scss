@@ -1,5 +1,7 @@
 @import "variables";
 
+@import "callouts";
+@import "content";
 @import "syntax";
 
 .docs-example {
@@ -13,10 +15,10 @@
 }
 
 .docs-example-code {
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   background-color: #f7f7f9;
 
-  .hljs {
+  .highlight {
     padding: 1.5rem;
   }
 }

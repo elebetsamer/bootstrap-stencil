@@ -1,11 +1,14 @@
 /* stylelint-disable */
 
-.hljs {
-  display: block;
-  overflow-x: auto;
+.highlight {
+  margin-bottom: 1.5rem;
   padding: 0.5em;
   background: #1E1E1E;
-  color: #DCDCDC;
+
+  pre {
+    color: #DCDCDC;
+    margin-bottom: 0;
+  }
 }
 
 .hljs-keyword,
