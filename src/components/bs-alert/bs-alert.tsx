@@ -1,4 +1,4 @@
-import { Component, Element, Prop, PropDidChange, PropWillChange } from '@stencil/core';
+import { Component, Element, Method, Prop, PropDidChange, PropWillChange } from '@stencil/core';
 
 import { themeDidChange, themeWillChange } from '../../util/functions';
 
@@ -41,6 +41,11 @@ export class Alert {
     themeWillChange(this.element, this.theme, 'alert');
   }
 
+  @Method()
+  dismiss() {
+    this.handleDismiss();
+  }
+
   componentDidUnload() {
     console.log('The alert has been removed from the DOM');
   }
@@ -53,8 +58,10 @@ export class Alert {
     this.didThemeChangeHandler(this.theme);
   }
 
-  handleDismiss(event: UIEvent) {
-    event.preventDefault();
+  handleDismiss(event?: UIEvent) {
+    if (event) {
+      event.preventDefault();
+    }
 
     this.element.remove();
   }
