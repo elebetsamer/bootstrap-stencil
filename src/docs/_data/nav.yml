@@ -32,6 +32,7 @@
     - title: Alerts
       slug: bs-alert
     - title: Badge
+      slug: bs-badge
     - title: Breadcrumb
     - title: Buttons
     - title: Button group
