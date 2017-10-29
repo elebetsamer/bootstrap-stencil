@@ -134,8 +134,6 @@ Since these are web components, there is no *framework* needed. You can just use
   <a href="#" onclick="togglePropertiesBadgePill(event);">Change `pill` on "Properties Badge"</a>
   <br>
   <a href="#" onclick="changePropertiesBadgeTheme(event);">Change "Properties Badge" theme</a>
-  <br>
-  <a href="#" onclick="togglePropertiesBadgeUrl(event);">Change `url` on "Properties Badge"</a>
 </div>
 
 ```html
@@ -146,8 +144,6 @@ Since these are web components, there is no *framework* needed. You can just use
 <a href="#" onclick="togglePropertiesBadgePill(event);">Change `pill` on "Properties Badge"</a>
 <br>
 <a href="#" onclick="changePropertiesBadgeTheme(event);">Change "Properties Badge" theme</a>
-<br>
-<a href="#" onclick="togglePropertiesBadgeUrl(event);">Change `url` on "Properties Badge"</a>
 <script>
   function changePropertiesBadgeTheme(event) {
     var badgeEl = document.getElementById("properties-badge");
@@ -196,22 +192,6 @@ Since these are web components, there is no *framework* needed. You can just use
     }
 
     badgeEl.pill = !badgeEl.pill;
-  }
-
-  function togglePropertiesBadgeUrl(event) {
-    var badgeEl = document.getElementById("properties-badge");
-
-    event.preventDefault();
-
-    if (!badgeEl) {
-      return;
-    }
-
-    if (badgeEl.url) {
-      badgeEl.url = '';
-    } else {
-      badgeEl.url = '#';
-    }
   }
 </script>
 ```
