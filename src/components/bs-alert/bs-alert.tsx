@@ -14,6 +14,9 @@ export class Alert {
   dismissible: boolean = false;
 
   @Prop()
+  heading: string;
+
+  @Prop()
   processLinks: boolean = true;
 
   @Prop()
@@ -58,6 +61,14 @@ export class Alert {
     return null;
   }
 
+  renderHeading() {
+    if (this.heading) {
+      return (
+        <h4 class="alert-heading">{this.heading}</h4>
+      )
+    }
+  }
+
   render() {
     if (this.processLinks) {
       const links = this.element.querySelectorAll('a');
@@ -68,8 +79,9 @@ export class Alert {
     }
 
     return ([
-      this.renderCloseButton(),
-      <slot />
+      this.renderHeading(),
+      <slot />,
+      this.renderCloseButton()
     ]);
   }
 }
