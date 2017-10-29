@@ -50,6 +50,12 @@ var liquidContext = {
   }
 }
 
+marked.setOptions({
+  highlight: function (code, lang) {
+    return getHighlightOutput(lang, code);
+  }
+});
+
 readGlobalConfig();
 cleanDestination();
 readDataFiles();
@@ -58,8 +64,6 @@ createLiquidEngine();
 readPages();
 processPages();
 copyFiles();
-
-// console.log(layouts);
 
 function cleanDestination() {
   fs.emptyDirSync(globalConfig.destination);
@@ -248,12 +252,12 @@ function createLiquidEngine() {
       }
     }
   });
+}
 
-  function getHighlightOutput(lang, input) {
-    let hljsResult = hljs.highlight(lang, input);
+function getHighlightOutput(lang, input) {
+  let hljsResult = hljs.highlight(lang, input);
 
-    return `<pre><code class="hljs language-${lang}" data-lang="${lang}">${hljsResult.value.trimLeft().trimRight()}</code></pre>`;
-  }
+  return `<pre><code class="hljs language-${lang}" data-lang="${lang}">${hljsResult.value.trim()}</code></pre>`;
 }
 
 function isSupportedLiquidFile(filename) {
