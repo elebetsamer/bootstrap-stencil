@@ -2,6 +2,25 @@
 
 @import "syntax";
 
+.docs-example {
+  position: relative;
+  padding: 1.5rem;
+  border: 3px solid #f7f7f9;
+
+  > *:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.docs-example-code {
+  margin-bottom: 1rem;
+  background-color: #f7f7f9;
+
+  .hljs {
+    padding: 1.5rem;
+  }
+}
+
 .docs-footer {
   font-size: .875rem;
   background-color: #f7f7f7;

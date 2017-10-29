@@ -192,15 +192,68 @@ function createLiquidEngine() {
           .renderer
           .renderTemplates(this.templates, scope)
           .then((result) => {
-            let hljsResult = hljs.highlight(this.lang, result);
-
-            return Promise.resolve(`<pre><code class="hljs language-${this.lang}" data-lang="${this.lang}">${hljsResult.value.trimLeft().trimRight()}</code></pre>`);
+            return Promise.resolve(getHighlightOutput(this.lang, result));
           });
       } else {
         return Promise.resolve(null);
       }
     }
   });
+
+  liquidEngine.registerTag('example', {
+    parse: function (tagToken, remainTokens) {
+      let params = tagToken.args + '';
+
+      if (params) {
+        let paramArray = params.split(' ');
+
+        if (paramArray.length > 1) {
+          throw new Error('Only a single parameter should be used with the example tag. Usage: example langName');
+        }
+
+        this.lang = paramArray[0];
+      } else {
+        throw new Error(`You must provide a language to the example tag. Usage: example langName`);
+      }
+
+      this.templates = [];
+
+      var stream = liquidEngine.parser.parseStream(remainTokens);
+
+      stream
+        .on('template', (template) => {
+          this.templates.push(template);
+        })
+        .on("tag:endexample", () => {
+          stream.stop();
+        })
+        .on('end', (x) => {
+          throw new Error(`tag ${tagToken.raw} not closed`);
+        });
+
+      stream.start();
+    },
+    render: function (scope, hash) {
+      if (this.templates && this.templates.length > 0) {
+        return liquidEngine
+          .renderer
+          .renderTemplates(this.templates, scope)
+          .then((result) => {
+            let output = `<div class="docs-example">${result}</div>\n<div class="docs-example-code">${getHighlightOutput(this.lang, result)}</div>`;
+
+            return Promise.resolve(output);
+          });
+      } else {
+        return Promise.resolve(null);
+      }
+    }
+  });
+
+  function getHighlightOutput(lang, input) {
+    let hljsResult = hljs.highlight(lang, input);
+
+    return `<pre><code class="hljs language-${lang}" data-lang="${lang}">${hljsResult.value.trimLeft().trimRight()}</code></pre>`;
+  }
 }
 
 function isSupportedLiquidFile(filename) {
