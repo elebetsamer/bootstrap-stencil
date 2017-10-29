@@ -22,6 +22,15 @@ export class Alert {
   @Prop()
   theme: string = 'primary';
 
+  @PropDidChange('dismissible')
+  didDismissibleChangeHandler(dismissible: boolean) {
+    if (dismissible) {
+      this.element.classList.add('alert-dismissible');
+    } else {
+      this.element.classList.remove('alert-dismissible');
+    }
+  }
+
   @PropDidChange('theme')
   didThemeChangeHandler(theme: string) {
     themeDidChange(this.element, this.theme, 'alert');
@@ -40,6 +49,7 @@ export class Alert {
     this.element.classList.add('alert');
     this.element.setAttribute('role', 'alert');
 
+    this.didDismissibleChangeHandler(this.dismissible);
     this.didThemeChangeHandler(this.theme);
   }
 
