@@ -80,14 +80,14 @@ Using the `dismissible` attribute, it's possible to dismiss any alert inline. Yo
 
 ## JavaScript behavior
 
-Since these are web components, there is no *framework* needed. You can just use native javascript to interact with the components.
+Since these are web components, there is no *framework* needed. You can just use native javascript to interact with the `bs-alert` component.
 
 ### Methods
 
 | Method | Description |
 | --- | --- |
 | `document.createElement('bs-alert')` | Creates an alert. You will need to set other properties to add content, and you will need to add it the DOM. See code example below. |
-| `document.getElementById("my-alert").dismiss()` | Closes an alert by removing it from the DOM. This can be called to dismiss the alert even if it wasn't set as `dimissible`. |
+| `document.getElementById("methods-alert").dismiss()` | Closes an alert by removing it from the DOM. This can be called to dismiss the alert even if it wasn't set as `dimissible`. |
 
 #### Method examples
 
@@ -143,9 +143,9 @@ Since these are web components, there is no *framework* needed. You can just use
 
 | Property | Description |
 | --- | --- |
-| `document.getElementById("my-alert").dismissible = false` | Changes an alert to not be dismissible |
-| `document.getElementById("my-alert").dismissible = true` | Changes an alert to be dismissible |
-| `document.getElementById("my-alert").theme = 'danger'` | Changes the theme for an alert |
+| `document.getElementById("properties-alert").dismissible = false` | Changes an alert to not be dismissible |
+| `document.getElementById("properties-alert").dismissible = true` | Changes an alert to be dismissible |
+| `document.getElementById("properties-alert").theme = 'danger'` | Changes the theme for an alert |
 
 #### Property examples
 
