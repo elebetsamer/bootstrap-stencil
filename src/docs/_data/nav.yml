@@ -30,6 +30,7 @@
 - title: Components
   pages:
     - title: Alerts
+      slug: bs-alert
     - title: Badge
     - title: Breadcrumb
     - title: Buttons

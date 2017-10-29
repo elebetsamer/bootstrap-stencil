@@ -28,6 +28,10 @@
         {%- assign doc_slug = doc.title | slugify -%}
         {%- assign active = nil -%}
 
+        {%- if doc.slug -%}
+          {%- assign doc_slug = doc.slug -%}
+        {%- endif -%}
+
         {%- if page.group == group_slug and page_slug == doc_slug -%}
           {%- assign active = 'active bd-sidenav-active' -%}
         {%- endif -%}
