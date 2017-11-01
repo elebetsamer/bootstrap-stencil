@@ -1,0 +1,29 @@
+title: Bootstrap Stencil
+description: "Stencil components for the Bootstrap (v4) framework."
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "" # the base hostname & protocol for your site, e.g. http://example.com
+
+# Permalinks
+permalink: pretty
+
+# Build settings
+source: ./src/docs
+destination: ./_gh_pages
+exclude:
+  - "**/*.sketch"
+  - assets/favicons.zip
+  - assets/scss/
+include: ['_pages']
+
+# Custom variables
+current_version: 0.0.1-alpha
+repo: https://github.com/elebetsamer/bootstrap-stencil
+issues: https://github.com/elebetsamer/bootstrap-stencil/issues
+
+defaults:
+  -
+    scope:
+      path: "" # an empty string here means all files in the project
+      type: "pages"
+    values:
+      layout: "default"
