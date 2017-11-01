@@ -23,8 +23,18 @@ export class Carousel {
   @Prop()
   wrap: boolean;
 
+  // @Listen('bs.carousel')
+  // todoCompletedHandler(event: CustomEvent) {
+  //   console.log('Received the custom slide.bs.carousel event: ', event.detail);
+  // }
+
   carousel() {
     $(this.element).carousel();
+
+    $(this.element).on('slide.bs.carousel', function () {
+      console.log('wowowowow');
+    });
+
   }
 
   cycle() {
@@ -56,30 +66,33 @@ export class Carousel {
     if (typeof this.interval !== 'undefined') {
       if (typeof this.interval === 'number') {
         // console.log('number');
-        this.setAttribute('interval', this.interval.toString());
+        this.setProperty('interval', this.interval.toString());
       }
     }
 
     if (typeof this.keyboard !== 'undefined') {
-      this.setAttribute('keyboard', this.keyboard.toString());
+      this.setProperty('keyboard', this.keyboard.toString());
     }
 
     if (typeof this.pause !== 'undefined') {
-      this.setAttribute('pause', this.pause.toString());
+      this.setProperty('pause', this.pause.toString());
     }
 
     if (typeof this.ride !== 'undefined') {
-      this.setAttribute('ride', this.ride.toString());
+      this.setProperty('ride', this.ride.toString());
     }
 
     if (typeof this.wrap !== 'undefined') {
-      this.setAttribute('wrap', this.wrap.toString());
+      this.setProperty('wrap', this.wrap.toString());
     }
 
   }
 
   componentDidLoad() {
     console.log('Carousel.componentDidLoad', this.interval, this.keyboard, this.pause, this.ride, this.wrap);
+
+    // this.element.addEventListener('click', function (e) { console.log('yes yes yes') }, false);
+
     this.carousel();
   }
 
@@ -101,7 +114,7 @@ export class Carousel {
           ]);
   }
 
-  private setAttribute(name: string, value: string) {
+  private setProperty(name: string, value: string) {
     const typ = document.createAttribute('data-' + name);
     typ.value = value;
     this.element.attributes.setNamedItem(typ);
