@@ -1,4 +1,4 @@
-import { Component, Element, Prop, PropDidChange, PropWillChange } from '@stencil/core';
+import { Component, Element, Method, Prop, PropDidChange, PropWillChange } from '@stencil/core';
 
 import { themeDidChange, themeWillChange } from '../../util/functions';
 
@@ -14,10 +14,22 @@ export class Alert {
   dismissible: boolean = false;
 
   @Prop()
+  heading: string;
+
+  @Prop()
   processLinks: boolean = true;
 
   @Prop()
   theme: string = 'primary';
+
+  @PropDidChange('dismissible')
+  didDismissibleChangeHandler(dismissible: boolean) {
+    if (dismissible) {
+      this.element.classList.add('alert-dismissible');
+    } else {
+      this.element.classList.remove('alert-dismissible');
+    }
+  }
 
   @PropDidChange('theme')
   didThemeChangeHandler(theme: string) {
@@ -29,6 +41,11 @@ export class Alert {
     themeWillChange(this.element, this.theme, 'alert');
   }
 
+  @Method()
+  dismiss() {
+    this.handleDismiss();
+  }
+
   componentDidUnload() {
     console.log('The alert has been removed from the DOM');
   }
@@ -37,11 +54,14 @@ export class Alert {
     this.element.classList.add('alert');
     this.element.setAttribute('role', 'alert');
 
+    this.didDismissibleChangeHandler(this.dismissible);
     this.didThemeChangeHandler(this.theme);
   }
 
-  handleDismiss(event: UIEvent) {
-    event.preventDefault();
+  handleDismiss(event?: UIEvent) {
+    if (event) {
+      event.preventDefault();
+    }
 
     this.element.remove();
   }
@@ -58,6 +78,14 @@ export class Alert {
     return null;
   }
 
+  renderHeading() {
+    if (this.heading) {
+      return (
+        <h4 class="alert-heading">{this.heading}</h4>
+      )
+    }
+  }
+
   render() {
     if (this.processLinks) {
       const links = this.element.querySelectorAll('a');
@@ -68,8 +96,9 @@ export class Alert {
     }
 
     return ([
-      this.renderCloseButton(),
-      <slot />
+      this.renderHeading(),
+      <slot />,
+      this.renderCloseButton()
     ]);
   }
 }

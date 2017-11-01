@@ -1,13 +1,13 @@
 /*
-To setup, place in scripts/st-generate.js and add
+To setup, place in build/st-generate.js and add
 
-"st:generate": "node scripts/st-generate.js"
+"st-generate": "node build/st-generate.js"
 
 To your npm scripts.
 
 To generate a component in src/components/ run
 
-npm run st:generate component my-component
+npm run st-generate component my-component
 */
 
 const fs = require('fs');

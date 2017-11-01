@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    {% include 'header.html' %}
+  </head>
+  <body class="docs-simple">
+    <a id="skippy" class="sr-only sr-only-focusable" href="#content">
+      <div class="container">
+        <span class="skiplink-text">Skip to main content</span>
+      </div>
+    </a>
+
+    {% include 'navbar.html' %}
+
+    <div class="container my-5">
+      <main class="docs-content" role="main">
+        <h1 class="docs-title" id="content">{{ page.title }}</h1>
+        <p class="lead docs-lead">{{ page.description }}</p>
+        {{ content }}
+      </main>
+    </div>
+
+    {% include 'footer.html' %}
+    {% include 'scripts.html' %}
+  </body>
+</html>
