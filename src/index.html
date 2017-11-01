@@ -1,23 +1,35 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
   <title>Bootstrap Stencil</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+    crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+    crossorigin="anonymous"></script>
+  <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+    crossorigin="anonymous"></script> -->
+  <script src="/assets/js/bootstrap.js"></script>
   <script src="/build/bsstencil.js"></script>
   <style>
-    .container > .card {
+    .container>.card {
       margin-bottom: 20px;
     }
+
   </style>
 </head>
+
 <body>
   <div class="container">
     <h1>Bootstrap Stencil</h1>
     <h2 class="text-muted">A collection of stencil web components built for Bootstrap v4+</h2>
     <div class="alert alert-warning">This is still very much a work in progress and is not in any way ready for usage yet.</div>
-    <bs-card card-title="Card Test" subtitle="A card doing card things" style="width: 350px" image-top="http://via.placeholder.com/350x150" image-bottom="http://via.placeholder.com/350x100" header="Hello!" footer="Bye!">
+    <bs-card card-title="Card Test" subtitle="A card doing card things" style="width: 350px" image-top="http://via.placeholder.com/350x150"
+      image-bottom="http://via.placeholder.com/350x100" header="Hello!" footer="Bye!">
       <p>This is a card!</p>
       <bs-card-link url="http://google.com">Google</bs-card-link>
       <bs-card-link url="http://yahoo.com">Yahoo</bs-card-link>
@@ -48,34 +60,46 @@
         This is a dark alert—check it out!
       </bs-alert>
       <h3>Link color</h3>
-      <p>Links will automatically get the <code>.alert-link</code> utility class to quickly provide matching colored links within any alert.</p>
-      <p>To disable the automatic addition of the utility class, set <code>process-links="false"</code> on the component.</p>
+      <p>Links will automatically get the
+        <code>.alert-link</code> utility class to quickly provide matching colored links within any alert.</p>
+      <p>To disable the automatic addition of the utility class, set
+        <code>process-links="false"</code> on the component.</p>
       <bs-alert theme="primary" process-links="false">
-        This is a primary alert with <a href="#">an example link</a>. Give it a click if you like. <em>Link processing has been turned off.</em>
+        This is a primary alert with
+        <a href="#">an example link</a>. Give it a click if you like.
+        <em>Link processing has been turned off.</em>
       </bs-alert>
       <bs-alert theme="primary">
-        This is a primary alert with <a href="#">an example link</a>. Give it a click if you like.
+        This is a primary alert with
+        <a href="#">an example link</a>. Give it a click if you like.
       </bs-alert>
       <bs-alert theme="secondary">
-        This is a secondary alert with <a href="#">an example link</a>. Give it a click if you like.
+        This is a secondary alert with
+        <a href="#">an example link</a>. Give it a click if you like.
       </bs-alert>
       <bs-alert theme="success">
-        This is a success alert with <a href="#">an example link</a>. Give it a click if you like.
+        This is a success alert with
+        <a href="#">an example link</a>. Give it a click if you like.
       </bs-alert>
       <bs-alert theme="danger">
-        This is a danger alert with <a href="#">an example link</a>. Give it a click if you like.
+        This is a danger alert with
+        <a href="#">an example link</a>. Give it a click if you like.
       </bs-alert>
       <bs-alert theme="warning">
-        This is a warning alert with <a href="#">an example link</a>. Give it a click if you like.
+        This is a warning alert with
+        <a href="#">an example link</a>. Give it a click if you like.
       </bs-alert>
       <bs-alert theme="info">
-        This is a info alert with <a href="#">an example link</a>. Give it a click if you like.
+        This is a info alert with
+        <a href="#">an example link</a>. Give it a click if you like.
       </bs-alert>
       <bs-alert theme="light">
-        This is a light alert with <a href="#">an example link</a>. Give it a click if you like.
+        This is a light alert with
+        <a href="#">an example link</a>. Give it a click if you like.
       </bs-alert>
       <bs-alert theme="dark">
-        This is a dark alert with <a href="#">an example link</a>. Give it a click if you like.
+        This is a dark alert with
+        <a href="#">an example link</a>. Give it a click if you like.
       </bs-alert>
       <h3>Dismissing</h3>
       <bs-alert dismissible="true">
@@ -83,12 +107,24 @@
       </bs-alert>
     </bs-card>
     <bs-card card-title="Bootstrap Badge">
-      <h1>Example heading <bs-badge theme="secondary">New</bs-badge></h1>
-      <h2>Example heading <bs-badge theme="secondary">New</bs-badge></h2>
-      <h3>Example heading <bs-badge theme="secondary">New</bs-badge></h3>
-      <h4>Example heading <bs-badge theme="secondary">New</bs-badge></h4>
-      <h5>Example heading <bs-badge theme="secondary">New</bs-badge></h5>
-      <h6>Example heading <bs-badge theme="secondary">New</bs-badge></h6>
+      <h1>Example heading
+        <bs-badge theme="secondary">New</bs-badge>
+      </h1>
+      <h2>Example heading
+        <bs-badge theme="secondary">New</bs-badge>
+      </h2>
+      <h3>Example heading
+        <bs-badge theme="secondary">New</bs-badge>
+      </h3>
+      <h4>Example heading
+        <bs-badge theme="secondary">New</bs-badge>
+      </h4>
+      <h5>Example heading
+        <bs-badge theme="secondary">New</bs-badge>
+      </h5>
+      <h6>Example heading
+        <bs-badge theme="secondary">New</bs-badge>
+      </h6>
       <div>
         <bs-badge theme="primary">Primary</bs-badge>
         <bs-badge theme="secondary">Secondary</bs-badge>
@@ -105,12 +141,18 @@
         <bs-breadcrumb-item active="true">Home</bs-breadcrumb-item>
       </bs-breadcrumb>
       <bs-breadcrumb>
-        <bs-breadcrumb-item><a href="#">Home</a></bs-breadcrumb-item>
+        <bs-breadcrumb-item>
+          <a href="#">Home</a>
+        </bs-breadcrumb-item>
         <bs-breadcrumb-item active="true">Library</bs-breadcrumb-item>
       </bs-breadcrumb>
       <bs-breadcrumb>
-        <bs-breadcrumb-item><a href="#">Home</a></bs-breadcrumb-item>
-        <bs-breadcrumb-item><a href="#">Library</a></bs-breadcrumb-item>
+        <bs-breadcrumb-item>
+          <a href="#">Home</a>
+        </bs-breadcrumb-item>
+        <bs-breadcrumb-item>
+          <a href="#">Library</a>
+        </bs-breadcrumb-item>
         <bs-breadcrumb-item active="true">Data</bs-breadcrumb-item>
       </bs-breadcrumb>
     </bs-card>
@@ -125,6 +167,45 @@
       <bs-button theme="dark">Dark</bs-button>
       <bs-button theme="link">Link</bs-button>
     </bs-card>
+    <bs-card card-title="Bootstrap Carousel">
+
+
+      <!-- <h3>Slides only</h3>
+      <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img class="d-block w-100" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15f5f08fd4f%20text%20%7B%20fill%3A%23555%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15f5f08fd4f%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22285.921875%22%20y%3D%22218.45%22%3EFirst%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
+              alt="First slide">
+          </div>
+          <div class="carousel-item">
+            <img class="d-block w-100" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15f5f08fd53%20text%20%7B%20fill%3A%23444%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15f5f08fd53%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23666%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22247.3203125%22%20y%3D%22218.45%22%3ESecond%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
+              alt="Second slide">
+          </div>
+          <span class="carousel-item">
+            <img class="d-block w-100" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15f5f08fd54%20text%20%7B%20fill%3A%23333%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15f5f08fd54%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23555%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22277%22%20y%3D%22218.45%22%3EThird%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
+              alt="Third slide">
+          </span>
+        </div>
+      </div> -->
+
+
+
+      <h3>Slides only</h3>
+      <bs-carousel id="test2">
+        <bs-carousel-item slot="items" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15f5f08fd4f%20text%20%7B%20fill%3A%23555%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15f5f08fd4f%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22285.921875%22%20y%3D%22218.45%22%3EFirst%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
+          alt="First slide" active="true"></bs-carousel-item>
+
+        <bs-carousel-item slot="items" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15f5f08fd53%20text%20%7B%20fill%3A%23444%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15f5f08fd53%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23666%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22247.3203125%22%20y%3D%22218.45%22%3ESecond%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
+          alt="Second slide"></bs-carousel-item>
+
+        <bs-carousel-item slot="items" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15f5f08fd54%20text%20%7B%20fill%3A%23333%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15f5f08fd54%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23555%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22277%22%20y%3D%22218.45%22%3EThird%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
+          alt="Third slide"></bs-carousel-item>
+
+      </bs-carousel>
+
+
+    </bs-card>
   </div>
 </body>
+
 </html>
