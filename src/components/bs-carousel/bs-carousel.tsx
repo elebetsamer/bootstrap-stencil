@@ -8,13 +8,16 @@ export class Carousel {
   @Element()
   element: HTMLElement;
 
+  @Prop()
+  interval: number;
+
   componentWillLoad() {
     this.element.classList.add('carousel');
     this.element.classList.add('slide');
+  }
 
-    const typ = document.createAttribute('data-ride');
-    typ.value = 'carousel';
-    this.element.attributes.setNamedItem(typ);
+  componentDidLoad() {
+    $('.carousel').carousel();
   }
 
   render() {
