@@ -1,4 +1,5 @@
 import { Component, Element, Prop } from '@stencil/core';
+import { CarouselItem } from './bs-carousel-item/bs-carousel-item';
 
 @Component({
   tag: 'bs-carousel',
@@ -34,6 +35,8 @@ export class Carousel {
   @Prop()
   withIndicators: boolean = false;
 
+  items: CarouselItem[] = [];
+
   carousel() {
     $(this.element).carousel();
 
@@ -68,11 +71,11 @@ export class Carousel {
       return;
     } else {
       return ([
-        <a class="carousel-control-prev" href={this.getHashName()} role="button" data-slide="prev">
+        <a class="carousel-control-prev" href={this.hashName} role="button" data-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="sr-only">Previous</span>
         </a>,
-        <a class="carousel-control-next" href={this.getHashName()} role="button" data-slide="next">
+        <a class="carousel-control-next" href={this.hashName} role="button" data-slide="next">
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="sr-only">Next</span>
         </a>
@@ -86,11 +89,12 @@ export class Carousel {
       return (
 
         <ol class="carousel-indicators">
-          <li data-target={this.getHashName()} data-slide-to="0" class="active"></li>
-          <li data-target={this.getHashName()} data-slide-to="1"></li>
-          <li data-target={this.getHashName()} data-slide-to="2"></li>
+          {this.items.map((item) => {
+            return (
+              <li data-target={this.hashName} data-slide-to={this.items.indexOf(item)} class={item.active ? "active" : ""}></li>
+            )
+          })}
         </ol>
-
       )
     } else {
       return;
@@ -136,9 +140,9 @@ export class Carousel {
   }
 
   componentDidLoad() {
-    console.log('Carousel.componentDidLoad', this.interval, this.keyboard, this.pause, this.ride, this.wrap);
+    console.log('Carousel.componentDidLoad', this.id, this.interval, this.keyboard, this.pause, this.ride, this.wrap);
 
-    // this.element.addEventListener('click', function (e) { console.log('yes yes yes') }, false);
+    this.items = Array.from(this.element.querySelectorAll('bs-carousel-item'));
 
     this.carousel();
   }
@@ -151,7 +155,7 @@ export class Carousel {
       <div class="carousel-inner">
         <slot name="items" />
       </div>,
-        this.renderNavControls()
+      this.renderNavControls()
     ]);
   }
 
@@ -167,13 +171,7 @@ export class Carousel {
     this.element.attributes.setNamedItem(typ);
   }
 
-  private getHashName(): string {
-    // if (typeof this.id === 'undefined' || this.id === '') {
-    //   Carousel.uniqueId++;
-    //   const id = "Carousel" + Carousel.uniqueId.toString();
-    //   return "#" + id;
-    // }
-
+  private get hashName(): string {
     return "#" + this.id;
   }
 
