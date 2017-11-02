@@ -32,7 +32,7 @@ export class Carousel {
     $(this.element).carousel();
 
     $(this.element).on('slide.bs.carousel', function () {
-      console.log('wowowowow');
+      // console.log('wowowowow');
     });
 
   }
