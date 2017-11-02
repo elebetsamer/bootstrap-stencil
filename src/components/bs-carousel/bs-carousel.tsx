@@ -153,7 +153,7 @@ export class Carousel {
     return ([
       this.renderWithIndicators(),
       <div class="carousel-inner">
-        <slot name="items" />
+        <slot />
       </div>,
       this.renderNavControls()
     ]);
