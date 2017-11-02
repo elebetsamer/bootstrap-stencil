@@ -27,18 +27,10 @@ export class CarouselItem {
     }
   }
 
-  // componentDidUpdate() {
-  //   if (this.active) {
-  //     this.element.classList.add('active');
-  //   } else {
-  //     this.element.classList.remove('active');
-  //   }
-  // }
-
   render() {
     console.log('CarouselItem->render');
     return (
-      <img class="d-block w-100" src={this.src} alt={this.alt} />
+      <img class="d-block w-100 img-fluid" src={this.src} alt={this.alt} />
     );
   }
 }

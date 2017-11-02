@@ -5,8 +5,13 @@ import { Component, Element, Prop } from '@stencil/core';
   styleUrl: 'bs-carousel.scss'
 })
 export class Carousel {
+  static uniqueId: number = 0;
+
   @Element()
   element: HTMLElement;
+
+  @Prop()
+  id: string;
 
   @Prop()
   interval: number;
@@ -24,12 +29,10 @@ export class Carousel {
   wrap: boolean;
 
   @Prop()
-  showControls: boolean = true;
+  slidesOnly: boolean = false;
 
-  // @Listen('bs.carousel')
-  // todoCompletedHandler(event: CustomEvent) {
-  //   console.log('Received the custom slide.bs.carousel event: ', event.detail);
-  // }
+  @Prop()
+  withIndicators: boolean = false;
 
   carousel() {
     $(this.element).carousel();
@@ -61,25 +64,48 @@ export class Carousel {
   }
 
   renderNavControls() {
-    if (this.showControls) {
+    if (this.slidesOnly) {
+      return;
+    } else {
       return ([
-        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+        <a class="carousel-control-prev" href={this.getHashName()} role="button" data-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="sr-only">Previous</span>
         </a>,
-        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+        <a class="carousel-control-next" href={this.getHashName()} role="button" data-slide="next">
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="sr-only">Next</span>
         </a>
       ]
       );
+    }
+  }
+
+  renderWithIndicators() {
+    if (this.withIndicators) {
+      return (
+
+        <ol class="carousel-indicators">
+          <li data-target={this.getHashName()} data-slide-to="0" class="active"></li>
+          <li data-target={this.getHashName()} data-slide-to="1"></li>
+          <li data-target={this.getHashName()} data-slide-to="2"></li>
+        </ol>
+
+      )
     } else {
       return;
     }
   }
 
   componentWillLoad() {
-    console.log('Carousel.componentWillLoad', this.interval, this.keyboard, this.pause, this.ride, this.wrap);
+    console.log('Carousel.componentWillLoad', this.id, this.interval, this.keyboard, this.pause, this.ride, this.wrap);
+
+    if (typeof this.id === 'undefined' || this.id === '') {
+      Carousel.uniqueId++;
+      const id = "Carousel" + Carousel.uniqueId.toString();
+      this.setId(id);
+    }
+
 
     this.element.classList.add('carousel');
     this.element.classList.add('slide');
@@ -118,9 +144,10 @@ export class Carousel {
   }
 
   render() {
-    console.log('Carousel.render', this.interval, this.keyboard, this.pause, this.ride, this.wrap);
+    console.log('Carousel.render', this.id, this.interval, this.keyboard, this.pause, this.ride, this.wrap);
 
     return ([
+      this.renderWithIndicators(),
       <div class="carousel-inner">
         <slot name="items" />
       </div>,
@@ -128,10 +155,26 @@ export class Carousel {
     ]);
   }
 
+  private setId(id: string) {
+    const typ = document.createAttribute('id');
+    typ.value = id;
+    this.element.attributes.setNamedItem(typ);
+  }
+
   private setProperty(name: string, value: string) {
     const typ = document.createAttribute('data-' + name);
     typ.value = value;
     this.element.attributes.setNamedItem(typ);
+  }
+
+  private getHashName(): string {
+    // if (typeof this.id === 'undefined' || this.id === '') {
+    //   Carousel.uniqueId++;
+    //   const id = "Carousel" + Carousel.uniqueId.toString();
+    //   return "#" + id;
+    // }
+
+    return "#" + this.id;
   }
 
 }
