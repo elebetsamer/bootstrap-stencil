@@ -23,6 +23,9 @@ export class Carousel {
   @Prop()
   wrap: boolean;
 
+  @Prop()
+  showControls: boolean = true;
+
   // @Listen('bs.carousel')
   // todoCompletedHandler(event: CustomEvent) {
   //   console.log('Received the custom slide.bs.carousel event: ', event.detail);
@@ -55,6 +58,24 @@ export class Carousel {
 
   dispose() {
     $(this.element).carousel('dispose');
+  }
+
+  renderNavControls() {
+    if (this.showControls) {
+      return ([
+        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>,
+        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      ]
+      );
+    } else {
+      return;
+    }
   }
 
   componentWillLoad() {
@@ -103,15 +124,8 @@ export class Carousel {
       <div class="carousel-inner">
         <slot name="items" />
       </div>,
-      <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-          </a>,
-      <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-          </a>
-          ]);
+        this.renderNavControls()
+    ]);
   }
 
   private setProperty(name: string, value: string) {
