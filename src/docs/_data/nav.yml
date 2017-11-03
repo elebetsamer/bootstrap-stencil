@@ -38,6 +38,7 @@
     - title: Button group
     - title: Card
     - title: Carousel
+      slug: bs-carousel
     - title: Collapse
     - title: Dropdowns
     - title: Forms

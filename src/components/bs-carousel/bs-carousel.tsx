@@ -1,4 +1,4 @@
-import { Component, Element, Prop } from '@stencil/core';
+import { Component, Element, Prop, State } from '@stencil/core';
 import { CarouselItem } from './bs-carousel-item/bs-carousel-item';
 
 @Component({
@@ -35,6 +35,7 @@ export class Carousel {
   @Prop()
   withIndicators: boolean = false;
 
+  @State()
   items: CarouselItem[] = [];
 
   carousel() {
@@ -87,7 +88,6 @@ export class Carousel {
   renderWithIndicators() {
     if (this.withIndicators) {
       return (
-
         <ol class="carousel-indicators">
           {this.items.map((item) => {
             return (
@@ -102,7 +102,7 @@ export class Carousel {
   }
 
   componentWillLoad() {
-    console.log('Carousel.componentWillLoad', this.id, this.interval, this.keyboard, this.pause, this.ride, this.wrap);
+    console.log('Carousel.componentWillLoad', this.id, this.interval, this.keyboard, this.pause, this.ride, this.wrap, this.slidesOnly, this.withIndicators);
 
     if (typeof this.id === 'undefined' || this.id === '') {
       Carousel.uniqueId++;
@@ -140,15 +140,17 @@ export class Carousel {
   }
 
   componentDidLoad() {
-    console.log('Carousel.componentDidLoad', this.id, this.interval, this.keyboard, this.pause, this.ride, this.wrap);
+    console.log('Carousel.componentDidLoad', this.id, this.interval, this.keyboard, this.pause, this.ride, this.wrap, this.slidesOnly, this.withIndicators);
 
     this.items = Array.from(this.element.querySelectorAll('bs-carousel-item'));
+
+    console.log('Carousel.componentDidLoad.2', this.items);
 
     this.carousel();
   }
 
   render() {
-    console.log('Carousel.render', this.id, this.interval, this.keyboard, this.pause, this.ride, this.wrap);
+    console.log('Carousel.render', this.id, this.interval, this.keyboard, this.pause, this.ride, this.wrap, this.slidesOnly, this.withIndicators);
 
     return ([
       this.renderWithIndicators(),
