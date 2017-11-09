@@ -49,7 +49,7 @@ Unless the context is clear (as with the "Notifications" example, where it is un
 
 ## Contextual variations
 
-Add any of the below mentioned modifier classes to change the appearance of a badge.
+Add any of the below mentioned `theme` to change the appearance of a badge. If no `theme` is set, the `primary` theme will be used.
 
 {% example html %}
 {%- for color in site.data.theme-colors -%}
@@ -59,11 +59,11 @@ Add any of the below mentioned modifier classes to change the appearance of a ba
 
 ## Pill badges
 
-Use the `.badge-pill` modifier class to make badges more rounded (with a larger `border-radius` and additional horizontal `padding`). Useful if you miss the badges from v3.
+Use the `pill` attribute to make badges more rounded (with a larger `border-radius` and additional horizontal `padding`). Useful if you miss the badges from Bootstrap v3.
 
 {% example html %}
 {%- for color in site.data.theme-colors -%}
-<bs-badge theme="{{ color.name }}" pill="true">{{ color.name | capitalize }}</bs-badge>
+<bs-badge theme="{{ color.name }}" pill>{{ color.name | capitalize }}</bs-badge>
 {%- endfor -%}
 {% endexample %}
 
@@ -118,11 +118,9 @@ Since these are web components, there is no *framework* needed. You can just use
 
 | Property | Description |
 | --- | --- |
-| `document.getElementById("properties-badge").pill = false` | Changes a badge to not be a pill |
-| `document.getElementById("properties-badge").pill = true` | Changes a badge to be a pill |
+| `document.getElementById("properties-badge").pill = true` or `false` | Changes a badge to be (or not be) a pill |
 | `document.getElementById("properties-badge").theme = 'danger'` | Changes the theme for a badge |
-| `document.getElementById("properties-badge").url = ''` | <bs-badge theme="danger">Do not use</bs-badge> Changing this property dynamically is buggy at the moment. |
-| `document.getElementById("properties-badge").url = '#'` | <bs-badge theme="danger">Do not use</bs-badge> Changing this property dynamically is buggy at the moment. |
+| `document.getElementById("properties-badge").url = ''` or `#` | <bs-badge theme="danger">Do not use</bs-badge> Changing this property dynamically is buggy at the moment. |
 
 #### Property examples
 
