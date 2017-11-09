@@ -15,8 +15,10 @@ export class BreadcrumbItem {
   didActiveChangeHandler(active: boolean) {
     if (active) {
       this.element.classList.add('active');
+      this.element.setAttribute('aria-current', 'page');
     } else {
       this.element.classList.remove('active');
+      this.element.removeAttribute('aria-current');
     }
   }
 
