@@ -1,3 +1,11 @@
 bs-button {
-  // display: block;
+  display: inline-block;
+
+  &[block=true] {
+    display: block;
+  }
+
+  + bs-button[block=true] {
+    margin-top: .5rem; // TODO: Use $btn-block-spacing-y Bootstrap variable
+  }
 }

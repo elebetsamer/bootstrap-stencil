@@ -72,12 +72,12 @@ The lists below are meant to loosely follow the structure of the Bootstrap site.
   - [ ] Isolate styles
   - [ ] Button types
     - [x] Button
-    - [ ] Input button
-    - [ ] Link button
-    - [ ] Outline button
-  - [ ] Button sizes
+    - [x] Input button
+    - [x] Link button
+    - [x] Outline button
+  - [x] Button sizes
   - [ ] Active state
-  - [ ] Disabled state
+  - [x] Disabled state
   - [ ] Button plugin (not sure if this should be implemented, but keeping this here for reference)
     - [ ] Toggle states
     - [ ] Checkbox and radio buttons
