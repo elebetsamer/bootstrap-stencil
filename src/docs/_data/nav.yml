@@ -18,7 +18,8 @@
       slug: bs-alert
     - title: Badges (bs-badge)
       slug: bs-badge
-    - title: Breadcrumb
+    - title: Breadcrumb (bs-breadcrumb)
+      slug: bs-breadcrumb
     - title: Buttons (bs-button)
       slug: bs-button
     - title: Button group
