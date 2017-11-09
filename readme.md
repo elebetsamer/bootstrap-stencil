@@ -60,8 +60,8 @@ The lists below are meant to loosely follow the structure of the Bootstrap site.
 - [ ] Badge
   - [x] Basic implementation
   - [ ] Isolate styles
-  - [ ] Pill badge
-  - [ ] Link badge
+  - [x] Pill badge
+  - [x] Link badge
 - [ ] Breadcrumb
   - [x] Basic implementation
   - [ ] Isolate styles
