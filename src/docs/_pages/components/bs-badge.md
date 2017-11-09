@@ -69,11 +69,11 @@ Use the `pill` attribute to make badges more rounded (with a larger `border-radi
 
 ## Links
 
-Using the contextual `.badge-*` classes on an `<a>` element quickly provide _actionable_ badges with hover and focus states.
+Use the `href` attribute to render an `<a>` element quickly provide _actionable_ badges with hover and focus states.
 
 {% example html %}
 {%- for color in site.data.theme-colors -%}
-<bs-badge url="#" theme="{{ color.name }}">{{ color.name | capitalize }}</bs-badge>
+<bs-badge href="#" theme="{{ color.name }}">{{ color.name | capitalize }}</bs-badge>
 {%- endfor -%}
 {% endexample %}
 
@@ -118,9 +118,9 @@ Since these are web components, there is no *framework* needed. You can just use
 
 | Property | Description |
 | --- | --- |
+| `document.getElementById("properties-badge").href = ''` or `#` | If set, renders a link badge.<br><bs-badge theme="danger">Do not change on an existing instance</bs-badge> Changing this property dynamically is buggy at the moment. |
 | `document.getElementById("properties-badge").pill = true` or `false` | Changes a badge to be (or not be) a pill |
 | `document.getElementById("properties-badge").theme = 'danger'` | Changes the theme for a badge |
-| `document.getElementById("properties-badge").url = ''` or `#` | <bs-badge theme="danger">Do not use</bs-badge> Changing this property dynamically is buggy at the moment. |
 
 #### Property examples
 

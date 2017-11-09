@@ -126,7 +126,7 @@ function togglePropertiesBadgePill(event) {
   badgeEl.pill = !badgeEl.pill;
 }
 
-function togglePropertiesBadgeUrl(event) {
+function togglePropertiesBadgeHref(event) {
   var badgeEl = document.getElementById("properties-badge");
 
   event.preventDefault();
@@ -135,10 +135,10 @@ function togglePropertiesBadgeUrl(event) {
     return;
   }
 
-  if (badgeEl.url) {
-    badgeEl.url = '';
+  if (badgeEl.href) {
+    badgeEl.href = '';
   } else {
-    badgeEl.url = '#';
+    badgeEl.href = '#';
   }
 }
 
