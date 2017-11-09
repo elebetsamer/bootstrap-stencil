@@ -2,6 +2,8 @@
 
 @import "callouts";
 @import "content";
+@import "navbar";
+@import "sidebar";
 @import "syntax";
 
 .docs-example {
@@ -43,18 +45,6 @@
 
 .docs-lead {
   font-size: 1.5rem;
-}
-
-.docs-navbar {
-  background: $brand-stencil;
-  background: linear-gradient(to right, $brand-stencil 0%, $brand-bootstrap 100%);
-
-  .navbar-nav-svg {
-    display: inline-block;
-    width: 1rem;
-    height: 1rem;
-    vertical-align: text-top;
-  }
 }
 
 .docs-toc {

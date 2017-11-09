@@ -37,8 +37,9 @@
     "watch-docs": "npm run docs && onchange 'src/docs' -e 'src/docs/**/*.css' -e 'src/docs/**/*.map' -- run-s docs",
     "deploy": "np",
     "deploy-docs": "bs --no-yarn --no-cleanup --directory ./_gh_pages",
-    "docs-server": "http-server _gh_pages -c-1",
-    "serve-docs": "run-p docs-server watch-docs"
+    "docs-serve": "http-server _gh_pages -c-1",
+    "docs-serve-and-watch": "run-p docs-serve watch-docs",
+    "dist": "npm-run-all --parallel build"
   },
   "dependencies": {
     "@stencil/core": "latest",

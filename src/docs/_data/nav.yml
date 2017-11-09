@@ -1,15 +1,8 @@
 - title: Getting started
   pages:
     - title: Introduction
-    - title: Download
-    - title: Contents
-    - title: Browsers & devices
-    - title: JavaScript
-    - title: Theming
     - title: Build tools
-    # - title: Best practices # TODO: Write this content
     - title: Webpack
-    - title: Accessibility
 
 - title: Layout
   pages:
@@ -29,9 +22,9 @@
 
 - title: Components
   pages:
-    - title: Alerts
+    - title: Alerts (bs-alert)
       slug: bs-alert
-    - title: Badge
+    - title: Badge (bs-badge)
       slug: bs-badge
     - title: Breadcrumb
     - title: Buttons
