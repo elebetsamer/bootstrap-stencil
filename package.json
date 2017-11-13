@@ -43,7 +43,7 @@
   },
   "dependencies": {
     "@stencil/core": "latest",
-    "bootstrap": "^4.0.0-beta"
+    "bootstrap": "^4.0.0-beta.2"
   },
   "devDependencies": {
     "@stencil/dev-server": "latest",
