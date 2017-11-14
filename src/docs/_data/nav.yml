@@ -31,7 +31,8 @@
     - title: Forms
     - title: Input group
     - title: Jumbotron
-    - title: List group
+    - title: List group (bs-list-group)
+      slug: bs-list-group
     - title: Modal
     - title: Navs
     - title: Navbar
