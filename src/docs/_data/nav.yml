@@ -23,7 +23,8 @@
     - title: Buttons (bs-button)
       slug: bs-button
     - title: Button group
-    - title: Card
+    - title: Cards (bs-card)
+      slug: bs-card
     - title: Carousel
     - title: Collapse
     - title: Dropdowns
