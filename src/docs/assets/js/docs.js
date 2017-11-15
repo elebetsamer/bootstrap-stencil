@@ -23,6 +23,18 @@ function createBadge(event) {
   container.appendChild(badgeEl);
 }
 
+function createButton(event) {
+  event.preventDefault();
+
+  var container = document.getElementById('dynamic-buttons');
+  var buttonEl = document.createElement('bs-button');
+
+  buttonEl.innerText = 'Dynamically created button';
+  buttonEl.theme = 'info';
+
+  container.appendChild(buttonEl);
+}
+
 function changePropertiesAlertTheme(event) {
   event.preventDefault();
 
@@ -33,6 +45,12 @@ function changePropertiesBadgeTheme(event) {
   event.preventDefault();
 
   changeElementTheme("properties-badge");
+}
+
+function changePropertiesButtonTheme(event) {
+  event.preventDefault();
+
+  changeElementTheme("properties-button");
 }
 
 function changeElementTheme(elementId) {
@@ -108,7 +126,7 @@ function togglePropertiesBadgePill(event) {
   badgeEl.pill = !badgeEl.pill;
 }
 
-function togglePropertiesBadgeUrl(event) {
+function togglePropertiesBadgeHref(event) {
   var badgeEl = document.getElementById("properties-badge");
 
   event.preventDefault();
@@ -117,10 +135,114 @@ function togglePropertiesBadgeUrl(event) {
     return;
   }
 
-  if (badgeEl.url) {
-    badgeEl.url = '';
+  if (badgeEl.href) {
+    badgeEl.href = '';
   } else {
-    badgeEl.url = '#';
+    badgeEl.href = '#';
+  }
+}
+
+function togglePropertiesButtonBlock(event) {
+  var buttonEl = document.getElementById("properties-button");
+
+  event.preventDefault();
+
+  if (!buttonEl) {
+    return;
+  }
+
+  buttonEl.block = !buttonEl.block;
+}
+
+function togglePropertiesButtonDisabled(event) {
+  var buttonEl = document.getElementById("properties-button");
+
+  event.preventDefault();
+
+  if (!buttonEl) {
+    return;
+  }
+
+  buttonEl.disabled = !buttonEl.disabled;
+}
+
+function togglePropertiesButtonHref(event) {
+  var buttonEl = document.getElementById("properties-button");
+
+  event.preventDefault();
+
+  if (!buttonEl) {
+    return;
+  }
+
+  if (buttonEl.href) {
+    buttonEl.href = '';
+  } else {
+    buttonEl.href = '#';
+  }
+}
+
+function togglePropertiesButtonOutline(event) {
+  var buttonEl = document.getElementById("properties-button");
+
+  event.preventDefault();
+
+  if (!buttonEl) {
+    return;
+  }
+
+  buttonEl.outline = !buttonEl.outline;
+}
+
+function togglePropertiesButtonSize(event) {
+  var buttonEl = document.getElementById("properties-button");
+
+  event.preventDefault();
+
+  if (!buttonEl) {
+    return;
+  }
+
+  if (buttonEl.size === 'sm') {
+    buttonEl.size = '';
+  } else if (buttonEl.size === 'lg') {
+    buttonEl.size = 'sm';
+  } else {
+    buttonEl.size = 'lg';
+  }
+}
+
+function togglePropertiesButtonType(event) {
+  var buttonEl = document.getElementById("properties-button");
+
+  event.preventDefault();
+
+  if (!buttonEl) {
+    return;
+  }
+
+  if (buttonEl.buttonType === 'button') {
+    buttonEl.buttonType = 'reset';
+  } else if (buttonEl.buttonType === 'reset') {
+    buttonEl.buttonType = 'submit';
+  } else {
+    buttonEl.buttonType = 'button';
+  }
+}
+
+function togglePropertiesButtonValue(event) {
+  var buttonEl = document.getElementById("properties-button");
+
+  event.preventDefault();
+
+  if (!buttonEl) {
+    return;
+  }
+
+  if (buttonEl.value) {
+    buttonEl.value = '';
+  } else {
+    buttonEl.value = 'Any Value';
   }
 }
 

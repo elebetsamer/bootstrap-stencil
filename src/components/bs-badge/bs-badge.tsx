@@ -11,13 +11,13 @@ export class Badge {
   element: HTMLElement;
 
   @Prop()
+  href: string;
+
+  @Prop()
   pill: boolean = false;
 
   @Prop()
   theme: string = 'primary';
-
-  @Prop()
-  url: string = '';
 
   @PropDidChange('pill')
   didPillChangeHandler(pill: boolean) {
@@ -46,7 +46,7 @@ export class Badge {
   }
 
   render() {
-    if (this.url) {
+    if (this.href) {
       let classes = {
         'badge': true,
         'badge-pill': this.pill
@@ -60,7 +60,7 @@ export class Badge {
       this.element.classList.remove(`badge-${this.theme}`);
 
       return (
-        <a href={this.url} class={classes}>
+        <a href={this.href} class={classes}>
           <slot />
         </a>
       );

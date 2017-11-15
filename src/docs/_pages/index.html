@@ -1,0 +1,38 @@
+---
+layout: home
+class: "highlight-light"
+---
+
+<div class="row m-0 border border-white">
+  <div class="col-12 col-md-4 p-3 p-md-5 bg-light border border-white">
+    <h3>Use via script</h3>
+    <p>Put a script tag in the head of your site.</p>
+    {% highlight html %}
+    <script src='https://unpkg.com/bootstrap-stencil@{{ site.current_version }}/dist/bsstencil.js'></script>
+    {% endhighlight %}
+  </div>
+  <div class="col-12 col-md-4 p-3 p-md-5 bg-light border border-white">
+    <h3>Use via npm</h3>
+    <p>Install the package using npm.</p>
+    {% highlight sh %}
+    npm install bootstrap-stencil --save
+    {% endhighlight %}
+    <p>Put a script tag in the head of your site.</p>
+    {% highlight html %}
+    <script src='node_modules/bootstrap-stencil/dist/bsstencil.js'></script>
+    {% endhighlight %}
+  </div>
+  <div class="col-12 col-md-4 p-3 p-md-5 bg-light border border-white">
+    <h3>Use with a stencil app</h3>
+    <p>Install the package using npm.</p>
+    {% highlight sh %}
+    npm install bootstrap-stencil --save
+    {% endhighlight %}
+    <p>Add the package to your <a href="https://stenciljs.com/docs/stencil-config" target="_blank"></a>stencil config</a> collections</p>
+    {% highlight js %}
+    collections: [
+      { name: 'bootstrap-stencil' }
+    ]
+    {% endhighlight %}
+  </div>
+</div>

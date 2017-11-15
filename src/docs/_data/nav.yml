@@ -1,42 +1,30 @@
 - title: Getting started
   pages:
     - title: Introduction
-    - title: Download
-    - title: Contents
-    - title: Browsers & devices
-    - title: JavaScript
-    - title: Theming
     - title: Build tools
-    # - title: Best practices # TODO: Write this content
     - title: Webpack
-    - title: Accessibility
 
 - title: Layout
   pages:
     - title: Overview
-    - title: Grid
-    - title: Media object
-    - title: Utilities for layout
 
 - title: Content
   pages:
-    - title: Reboot
-    - title: Typography
-    - title: Code
-    - title: Images
-    - title: Tables
-    - title: Figures
+    - title: Overview
 
 - title: Components
   pages:
-    - title: Alerts
+    - title: Alerts (bs-alert)
       slug: bs-alert
-    - title: Badge
+    - title: Badges (bs-badge)
       slug: bs-badge
-    - title: Breadcrumb
-    - title: Buttons
+    - title: Breadcrumb (bs-breadcrumb)
+      slug: bs-breadcrumb
+    - title: Buttons (bs-button)
+      slug: bs-button
     - title: Button group
-    - title: Card
+    - title: Cards (bs-card)
+      slug: bs-card
     - title: Carousel
       slug: bs-carousel
     - title: Collapse
@@ -44,7 +32,8 @@
     - title: Forms
     - title: Input group
     - title: Jumbotron
-    - title: List group
+    - title: List group (bs-list-group)
+      slug: bs-list-group
     - title: Modal
     - title: Navs
     - title: Navbar

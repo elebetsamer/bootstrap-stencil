@@ -9,13 +9,13 @@ export class CardLink {
   element: HTMLElement;
 
   @Prop()
-  url: string;
+  href: string;
 
   componentWillLoad() {
     this.element.classList.add('card-link');
   }
 
   render() {
-    return (<a href={this.url}><slot /></a>);
+    return (<a href={this.href}><slot /></a>);
   }
 }

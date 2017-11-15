@@ -72,7 +72,7 @@ Using the `dismissible` attribute, it's possible to dismiss any alert inline. Yo
 
 {% example html %}
 {%- for color in site.data.theme-colors -%}
-<bs-alert theme="{{ color.name }}" dismissible="true">
+<bs-alert theme="{{ color.name }}" dismissible>
   This is a dismissible {{ color.name }} alert—check it out!
 </bs-alert>
 {%- endfor -%}
@@ -143,8 +143,7 @@ Since these are web components, there is no *framework* needed. You can just use
 
 | Property | Description |
 | --- | --- |
-| `document.getElementById("properties-alert").dismissible = false` | Changes an alert to not be dismissible |
-| `document.getElementById("properties-alert").dismissible = true` | Changes an alert to be dismissible |
+| `document.getElementById("properties-alert").dismissible = true` or `false` | Changes an alert to be (or not be) dismissible |
 | `document.getElementById("properties-alert").theme = 'danger'` | Changes the theme for an alert |
 
 #### Property examples
