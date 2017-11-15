@@ -98,8 +98,71 @@ Add captions to your slides easily with the content within any carousel-item. Th
 {% endexample %}
 
 
+## JavaScript behavior
 
+Since these are web components, there is no *framework* needed. You can just use native javascript to interact with the `bs-carousel` component.
+
+### Methods
+
+| Method | Description |
+| --- | --- |
+| `document.createElement('methods-carousel')` | Creates an alert. You will need to set other properties to add content, and you will need to add it the DOM. See code example below. |
+| `document.getElementById("methods-carousel").dismiss()` | Closes an alert by removing it from the DOM. This can be called to dismiss the alert even if it wasn't set as `dimissible`. |
+
+### Properties
+
+| Property | Description | Default | Example |
+| --- | --- | --- |
+| id | assigns a unique id | {unique-id} | `element.id = 'carousel1'` |
+| interval | The amount of time to delay between automatically cycling an item. If false, carousel will not automatically cycle. | 5000 | `element.interval = 1000` |
+| keyboard | Whether the carousel should react to keyboard events. | true | `element.keybaord = true` |
+| pause | If set to "hover", pauses the cycling of the carousel on mouseenter and resumes the cycling of the carousel on mouseleave. If set to false, hovering over the carousel won't pause it. On touch-enabled devices, when set to "hover", cycling will pause on touchend (once the user finished interacting with the carousel) for two intervals, before automatically resuming. Note that this is in addition to the above mouse behavior. | "hover" | `element.pause = false` |
+| ride | Autoplays the carousel after the user manually cycles the first item. If "carousel", autoplays the carousel on load. | false | `element.ride = false` |
+| wrap | Whether the carousel should cycle continuously or have hard stops. | true | `element.wrap = false` |
+| slidesOnly | Display the slides without navigation controls. | false | `element.slidesOnly = true` |
+| withIndicators | Display slide position indicators. | false | `element.slidesOnly = false` |
+
+#### Property examples
+
+<div class="docs-example">
+<bs-carousel id="properties-carousel">
+  <bs-carousel-item src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15f5f08fd4f%20text%20%7B%20fill%3A%23555%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15f5f08fd4f%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22285.921875%22%20y%3D%22218.45%22%3EFirst%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
+    alt="First slide" active="true"><h2>1st slide caption</h2>Nulla vitae elit libero, a pharetra augue mollis interdum.</bs-carousel-item>
+  <bs-carousel-item src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15f5f08fd53%20text%20%7B%20fill%3A%23444%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15f5f08fd53%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23666%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22247.3203125%22%20y%3D%22218.45%22%3ESecond%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
+    alt="Second slide"><h2>2nd slide caption</h2></bs-carousel-item>
+  <bs-carousel-item src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15f5f08fd54%20text%20%7B%20fill%3A%23333%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15f5f08fd54%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23555%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22277%22%20y%3D%22218.45%22%3EThird%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
+    alt="Third slide"><h2>3rd slide caption</h2></bs-carousel-item>
+</bs-carousel>
+  <a href="#" onclick="togglePropertiesCarouselSlidesOnly(event);">Change `slidesOnly` on "Properties Carousel"</a>
+  <br>
+</div>
+
+```html
+<bs-carousel id="properties-carousel">
+  <bs-carousel-item src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15f5f08fd4f%20text%20%7B%20fill%3A%23555%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15f5f08fd4f%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22285.921875%22%20y%3D%22218.45%22%3EFirst%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
+    alt="First slide" active="true"><h2>1st slide caption</h2>Nulla vitae elit libero, a pharetra augue mollis interdum.</bs-carousel-item>
+  <bs-carousel-item src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15f5f08fd53%20text%20%7B%20fill%3A%23444%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15f5f08fd53%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23666%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22247.3203125%22%20y%3D%22218.45%22%3ESecond%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
+    alt="Second slide"><h2>2nd slide caption</h2></bs-carousel-item>
+  <bs-carousel-item src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15f5f08fd54%20text%20%7B%20fill%3A%23333%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15f5f08fd54%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23555%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22277%22%20y%3D%22218.45%22%3EThird%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
+    alt="Third slide"><h2>3rd slide caption</h2></bs-carousel-item>
+</bs-carousel>
+<a href="#" onclick="togglePropertiesCarouselSlidesOnly(event);">Change `slidesOnly` on "Properties Carousel"</a>
+<br>
+<script>
+  function togglePropertiesCarouselSlidesOnly(event) {
+    var el = document.getElementById("properties-carousel");
+
+    event.preventDefault();
+
+    if (!el) {
+      return;
+    }
+
+    el.slidesOnly = !el.slidesOnly;
+  }
+</script>
 ```
+
 
 ### Events
 

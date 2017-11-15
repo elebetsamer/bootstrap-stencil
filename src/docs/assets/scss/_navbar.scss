@@ -1,0 +1,19 @@
+.docs-navbar {
+  background: $brand-stencil;
+  background: linear-gradient(to right, $brand-stencil 0%, $brand-bootstrap 100%);
+
+  .navbar-nav-svg {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    vertical-align: text-top;
+  }
+
+  @include media-breakpoint-up(md) {
+    @supports (position: sticky) {
+      position: sticky;
+      top: 0;
+      z-index: 1071; // over everything in bootstrap
+    }
+  }
+}

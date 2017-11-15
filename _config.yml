@@ -17,8 +17,20 @@ include: ['_pages']
 
 # Custom variables
 current_version: 0.0.1-alpha
+current_bootstrap_version: 4.0.0-beta.2
 repo: https://github.com/elebetsamer/bootstrap-stencil
 issues: https://github.com/elebetsamer/bootstrap-stencil/issues
+
+cdn:
+  # See https://www.srihash.org for info on how to generate the hashes
+  bootstrap_css:      "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+  bootstrap_css_hash: "sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+  bootstrap_js:       "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+  bootstrap_js_hash:  "sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+  jquery:             "https://code.jquery.com/jquery-3.2.1.slim.min.js"
+  jquery_hash:        "sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+  popper:             "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"
+  popper_hash:        "sha384-W1IgCZfiFCplncoIxD5rld+uzdB6FlcG2vm4qjrCP5Z7uUt7vnwbztJXeqXgd26w"
 
 defaults:
   -

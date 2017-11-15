@@ -11,6 +11,9 @@ export class Card {
   element: HTMLElement;
 
   @Prop()
+  body: boolean = true;
+
+  @Prop()
   footer: string;
 
   @Prop()
@@ -53,9 +56,25 @@ export class Card {
     this.didThemeChangeHandler(this.theme);
   }
 
+  renderBody() {
+    if (this.body) {
+      return (
+        <bs-card-body cardTitle={this.cardTitle} subtitle={this.subtitle}>
+          <slot />
+        </bs-card-body>
+      );
+    }
+
+    return ([
+        this.renderTitle(),
+        this.renderSubtitle(),
+        <slot />
+    ]);
+  }
+
   renderFooter() {
     if (this.footer) {
-      return (<div class="card-header">{this.footer}</div>);
+      return (<bs-card-footer>{this.footer}</bs-card-footer>);
     }
 
     return null;
@@ -63,7 +82,7 @@ export class Card {
 
   renderHeader() {
     if (this.header) {
-      return (<div class="card-header">{this.header}</div>);
+      return (<bs-card-header>{this.header}</bs-card-header>);
     }
 
     return null;
@@ -87,7 +106,7 @@ export class Card {
 
   renderSubtitle() {
     if (this.subtitle) {
-      return (<h6 class="card-subtitle mb-2">{this.subtitle}</h6>);
+      return (<h6 class="card-subtitle mb-2 text-muted">{this.subtitle}</h6>);
     }
 
     return null;
@@ -105,11 +124,7 @@ export class Card {
     return ([
       this.renderHeader(),
       this.renderImageTop(),
-      <div class="card-body">
-        {this.renderTitle()}
-        {this.renderSubtitle()}
-        <slot />
-      </div>,
+      this.renderBody(),
       this.renderImageBottom(),
       this.renderFooter()
     ]);

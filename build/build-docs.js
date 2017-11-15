@@ -253,7 +253,13 @@ function createLiquidEngine() {
         if (levels.length === 0 || header.level > levels[0]) {
           levels.unshift(header.level);
           header.depth = levels.length;
-          tocs[cursor] += '<ul>';
+
+          if (header.depth == 1) {
+            tocs[cursor] += '<ul class="section-nav">';
+          } else {
+            tocs[cursor] += '<ul>';
+          }
+
           tocs.push('</li></ul>');
         } else {
           header.depth = levels.length;
