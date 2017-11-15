@@ -26,6 +26,7 @@
     - title: Cards (bs-card)
       slug: bs-card
     - title: Carousel
+      slug: bs-carousel
     - title: Collapse
     - title: Dropdowns
     - title: Forms

@@ -245,3 +245,15 @@ function togglePropertiesButtonValue(event) {
     buttonEl.value = 'Any Value';
   }
 }
+
+function togglePropertiesCarouselSlidesOnly(event) {
+  var el = document.getElementById("properties-carousel");
+
+  event.preventDefault();
+
+  if (!el) {
+    return;
+  }
+
+  el.slidesOnly = !el.slidesOnly;
+}
