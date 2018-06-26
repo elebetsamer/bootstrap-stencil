@@ -22,7 +22,8 @@
       slug: bs-breadcrumb
     - title: Buttons (bs-button)
       slug: bs-button
-    - title: Button group
+    - title: Button group (bs-button-group)
+      slug: bs-button-group
     - title: Cards (bs-card)
       slug: bs-card
     - title: Carousel (bs-carousel)
