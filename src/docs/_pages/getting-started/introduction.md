@@ -37,7 +37,7 @@ This is the probably the easiest way to use Bootstrap Stencil.
 Put a script tag in the head of your site.
 
 {% highlight html %}
-<script src='https://unpkg.com/bootstrap-stencil@{{ site.current_version }}/dist/bsstencil.js'></script>
+<script src='https://unpkg.com/bootstrap-stencil@{{ site.current_version }}/dist/bs-stencil.js'></script>
 {% endhighlight %}
 
 ### Use via npm
@@ -51,7 +51,7 @@ npm install bootstrap-stencil --save
 Put a script tag in the head of your site.
 
 {% highlight html %}
-<script src='node_modules/bootstrap-stencil/dist/bsstencil.js'></script>
+<script src='node_modules/bootstrap-stencil/dist/bs-stencil.js'></script>
 {% endhighlight %}
 
 ### Use with a stencil app
