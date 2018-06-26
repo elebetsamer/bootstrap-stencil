@@ -1,4 +1,4 @@
-import { Component, Element, Prop, PropDidChange } from '@stencil/core';
+import { Component, Element, Prop, Watch } from '@stencil/core';
 
 @Component({
   tag: 'bs-button',
@@ -11,8 +11,8 @@ export class Button {
   @Prop()
   block: boolean = false;
 
-  @PropDidChange('block')
-  blockPropDidChange(block: boolean) {
+  @Watch('block')
+  blockChanged(block: boolean) {
     if (block) {
       this.element.setAttribute('block', 'true');
     } else {

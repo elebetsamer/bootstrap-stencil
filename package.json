@@ -2,13 +2,13 @@
   "name": "bootstrap-stencil",
   "version": "0.0.1",
   "description": "Stencil components for the Bootstrap (v4) framework",
-  "main": "dist/collection/index.js",
-  "types": "dist/collection/index.d.ts",
+  "module": "dist/esm/index.js",
+  "main": "dist/index.js",
+  "types": "dist/types/index.d.ts",
   "collection": "dist/collection/collection-manifest.json",
   "files": [
     "dist/"
   ],
-  "browser": "dist/bsstencil.js",
   "scripts": {
     "build": "stencil build",
     "build-dev": "stencil build --dev",

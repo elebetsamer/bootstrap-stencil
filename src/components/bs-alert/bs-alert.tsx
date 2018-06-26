@@ -1,6 +1,6 @@
-import { Component, Element, Method, Prop, PropDidChange, PropWillChange } from '@stencil/core';
+import { Component, Element, Method, Prop, Watch } from '@stencil/core';
 
-import { themeDidChange, themeWillChange } from '../../util/functions';
+import { themeChanged } from '../../util/functions';
 
 @Component({
   tag: 'bs-alert',
@@ -22,8 +22,8 @@ export class Alert {
   @Prop()
   theme: string = 'primary';
 
-  @PropDidChange('dismissible')
-  didDismissibleChangeHandler(dismissible: boolean) {
+  @Watch('dismissible')
+  dismissibleChanged(dismissible: boolean) {
     if (dismissible) {
       this.element.classList.add('alert-dismissible');
     } else {
@@ -31,14 +31,9 @@ export class Alert {
     }
   }
 
-  @PropDidChange('theme')
-  didThemeChangeHandler(theme: string) {
-    themeDidChange(this.element, this.theme, 'alert');
-  }
-
-  @PropWillChange('theme')
-  willThemeChangeHandler(theme: string) {
-    themeWillChange(this.element, this.theme, 'alert');
+  @Watch('theme')
+  themeChanged(newTheme: string, oldTheme: string) {
+    themeChanged(this.element, newTheme, oldTheme, 'alert');
   }
 
   @Method()
@@ -54,8 +49,8 @@ export class Alert {
     this.element.classList.add('alert');
     this.element.setAttribute('role', 'alert');
 
-    this.didDismissibleChangeHandler(this.dismissible);
-    this.didThemeChangeHandler(this.theme);
+    this.dismissibleChanged(this.dismissible);
+    this.themeChanged(this.theme, null);
   }
 
   handleDismiss(event?: UIEvent) {

@@ -1,6 +1,6 @@
-import { Component, Element, Prop, PropDidChange, PropWillChange } from '@stencil/core';
+import { Component, Element, Prop, Watch } from '@stencil/core';
 
-import { themeDidChange, themeWillChange } from '../../util/functions';
+import { themeChanged } from '../../util/functions';
 
 @Component({
   tag: 'bs-badge',
@@ -19,8 +19,8 @@ export class Badge {
   @Prop()
   theme: string = 'primary';
 
-  @PropDidChange('pill')
-  didPillChangeHandler(pill: boolean) {
+  @Watch('pill')
+  pillChanged(pill: boolean) {
     if (pill) {
       this.element.classList.add('badge-pill');
     } else {
@@ -28,21 +28,16 @@ export class Badge {
     }
   }
 
-  @PropDidChange('theme')
-  didThemeChangeHandler(theme: string) {
-    themeDidChange(this.element, this.theme, 'badge');
-  }
-
-  @PropWillChange('theme')
-  willThemeChangeHandler(theme: string) {
-    themeWillChange(this.element, this.theme, 'badge');
+  @Watch('theme')
+  themeChanged(newTheme: string, oldTheme: string) {
+    themeChanged(this.element, newTheme, oldTheme, 'badge');
   }
 
   componentWillLoad() {
     this.element.classList.add('badge');
 
-    this.didPillChangeHandler(this.pill);
-    this.didThemeChangeHandler(this.theme);
+    this.pillChanged(this.pill);
+    this.themeChanged(this.theme, null);
   }
 
   render() {

@@ -1,4 +1,4 @@
-import { Component, Element, Prop, PropDidChange } from '@stencil/core';
+import { Component, Element, Prop, Watch } from '@stencil/core';
 
 @Component({
   tag: 'bs-list-group',
@@ -11,8 +11,8 @@ export class ListGroup {
   @Prop()
   flush: boolean = false;
 
-  @PropDidChange('flush')
-  flushDidChangeHandler(flush: boolean) {
+  @Watch('flush')
+  flushChanged(flush: boolean) {
     if (flush) {
       this.element.classList.add('list-group-flush');
     } else {
@@ -23,7 +23,7 @@ export class ListGroup {
   componentWillLoad() {
     this.element.classList.add('list-group');
 
-    this.flushDidChangeHandler(this.flush);
+    this.flushChanged(this.flush);
   }
 
   render() {

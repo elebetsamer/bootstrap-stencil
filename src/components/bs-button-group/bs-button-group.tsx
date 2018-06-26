@@ -1,4 +1,4 @@
-import { Component, Element, Prop, PropDidChange } from '@stencil/core';
+import { Component, Element, Prop, Watch } from '@stencil/core';
 
 @Component({
   tag: 'bs-button-group',
@@ -14,8 +14,8 @@ export class ButtonGroup {
   @Prop()
   vertical: boolean = false;
 
-  @PropDidChange('size')
-  sizeDidChangeHandler(size: string) {
+  @Watch('size')
+  sizeChanged(size: string) {
     this.element.classList.remove('btn-group-lg');
     this.element.classList.remove('btn-group-sm');
     this.element.classList.add(`btn-group-${size}`);
@@ -29,8 +29,8 @@ export class ButtonGroup {
     }
   }
 
-  @PropDidChange('vertical')
-  verticalDidChangeHandler(vertical: boolean) {
+  @Watch('vertical')
+  verticalChanged(vertical: boolean) {
     if (vertical) {
       this.element.classList.remove('btn-group');
       this.element.classList.add('btn-group-vertical');
@@ -43,8 +43,8 @@ export class ButtonGroup {
   componentWillLoad() {
     this.element.setAttribute('role', 'group');
 
-    this.sizeDidChangeHandler(this.size);
-    this.verticalDidChangeHandler(this.vertical);
+    this.sizeChanged(this.size);
+    this.verticalChanged(this.vertical);
   }
 
   render() {

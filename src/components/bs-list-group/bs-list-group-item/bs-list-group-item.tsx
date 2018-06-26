@@ -1,6 +1,6 @@
-import { Component, Element, Prop, PropDidChange, PropWillChange } from '@stencil/core';
+import { Component, Element, Prop, Watch } from '@stencil/core';
 
-import { themeDidChange, themeWillChange } from '../../../util/functions';
+import { themeChanged } from '../../../util/functions';
 
 @Component({
   tag: 'bs-list-group-item',
@@ -25,8 +25,8 @@ export class ListGroupItem {
   @Prop()
   theme: string = '';
 
-  @PropDidChange('active')
-  activeDidChangeHandler(active: boolean) {
+  @Watch('active')
+  activeChanged(active: boolean) {
     if (active) {
       this.element.classList.add('active');
     } else {
@@ -34,8 +34,8 @@ export class ListGroupItem {
     }
   }
 
-  @PropDidChange('button')
-  buttonDidChangeHandler(button: boolean) {
+  @Watch('button')
+  buttonChanged(button: boolean) {
     if (button) {
       this.element.classList.add('list-group-item-action');
     } else {
@@ -46,8 +46,8 @@ export class ListGroupItem {
     }
   }
 
-  @PropDidChange('disabled')
-  disabledDidChangeHandler(disabled: boolean) {
+  @Watch('disabled')
+  disabledChanged(disabled: boolean) {
     if (disabled) {
       this.element.classList.add('disabled');
     } else {
@@ -55,8 +55,8 @@ export class ListGroupItem {
     }
   }
 
-  @PropDidChange('href')
-  hrefDidChangeHandler(href: string) {
+  @Watch('href')
+  hrefChanged(href: string) {
     if (href) {
       this.element.classList.add('list-group-item-action');
     } else {
@@ -67,24 +67,19 @@ export class ListGroupItem {
     }
   }
 
-  @PropDidChange('theme')
-  didThemeChangeHandler(theme: string) {
-    themeDidChange(this.element, this.theme, 'list-group-item');
-  }
-
-  @PropWillChange('theme')
-  willThemeChangeHandler(theme: string) {
-    themeWillChange(this.element, this.theme, 'list-group-item');
+  @Watch('theme')
+  themeChanged(newTheme: string, oldTheme: string) {
+    themeChanged(this.element, newTheme, oldTheme, 'list-group-item');
   }
 
   componentWillLoad() {
     this.element.classList.add('list-group-item');
 
-    this.activeDidChangeHandler(this.active);
-    this.buttonDidChangeHandler(this.button);
-    this.disabledDidChangeHandler(this.disabled);
-    this.didThemeChangeHandler(this.theme);
-    this.hrefDidChangeHandler(this.href);
+    this.activeChanged(this.active);
+    this.buttonChanged(this.button);
+    this.disabledChanged(this.disabled);
+    this.themeChanged(this.theme, null);
+    this.hrefChanged(this.href);
   }
 
   render() {

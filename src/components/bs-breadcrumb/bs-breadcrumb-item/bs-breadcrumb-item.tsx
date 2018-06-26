@@ -1,4 +1,4 @@
-import { Component, Element, Prop, PropDidChange } from '@stencil/core';
+import { Component, Element, Prop, Watch } from '@stencil/core';
 
 @Component({
   tag: 'bs-breadcrumb-item',
@@ -11,8 +11,8 @@ export class BreadcrumbItem {
   @Prop()
   active: boolean = false;
 
-  @PropDidChange('active')
-  didActiveChangeHandler(active: boolean) {
+  @Watch('active')
+  activeChanged(active: boolean) {
     if (active) {
       this.element.classList.add('active');
       this.element.setAttribute('aria-current', 'page');
@@ -25,7 +25,7 @@ export class BreadcrumbItem {
   componentWillLoad() {
     this.element.classList.add('breadcrumb-item');
 
-    this.didActiveChangeHandler(this.active);
+    this.activeChanged(this.active);
   }
 
   render() {

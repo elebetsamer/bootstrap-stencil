@@ -1,11 +1,9 @@
-export function themeDidChange(element: HTMLElement, theme: string, prefix: string) {
-  if (theme) {
-    element.classList.add(`${prefix}-${theme}`);
-  }
-}
-
-export function themeWillChange(element: HTMLElement, oldTheme: string, prefix: string) {
+export function themeChanged(element: HTMLElement, theme: string, oldTheme: string, prefix: string) {
   if (oldTheme) {
     element.classList.remove(`${prefix}-${oldTheme}`);
+  }
+
+  if (theme) {
+    element.classList.add(`${prefix}-${theme}`);
   }
 }

@@ -1,5 +1,4 @@
-import { Component, Element, Prop, State } from '@stencil/core';
-import { CarouselItem } from './bs-carousel-item/bs-carousel-item';
+import { Component, Element, Prop } from '@stencil/core';
 
 @Component({
   tag: 'bs-carousel',
@@ -34,9 +33,6 @@ export class Carousel {
 
   @Prop()
   withIndicators: boolean = false;
-
-  @State()
-  items: CarouselItem[] = [];
 
   carousel() {
     $(this.element).carousel();
@@ -85,20 +81,20 @@ export class Carousel {
     }
   }
 
-  renderWithIndicators() {
+  renderWithIndicators(count: number) {
     if (this.withIndicators) {
-      return (
-        <ol class="carousel-indicators">
-          {this.items.map((item) => {
-            return (
-              <li data-target={this.hashName} data-slide-to={this.items.indexOf(item)} class={item.active ? "active" : ""}></li>
-            )
-          })}
-        </ol>
-      )
-    } else {
-      return;
+      const output = ['<ol class="carousel-indicators">'];
+
+      for (let index = 0; index < count; index++) {
+        output.push(`<li data-target=${this.hashName} data-slide-to=${index}></li>`)
+      }
+
+      output.push('</ol>');
+
+      return output;
     }
+
+    return null;
   }
 
   componentWillLoad() {
@@ -142,18 +138,15 @@ export class Carousel {
   componentDidLoad() {
     console.log('Carousel.componentDidLoad', this.id, this.interval, this.keyboard, this.pause, this.ride, this.wrap, this.slidesOnly, this.withIndicators);
 
-    this.items = Array.from(this.element.querySelectorAll('bs-carousel-item'));
-
-    console.log('Carousel.componentDidLoad.2', this.items);
-
     this.carousel();
   }
 
   render() {
     console.log('Carousel.render', this.id, this.interval, this.keyboard, this.pause, this.ride, this.wrap, this.slidesOnly, this.withIndicators);
+    const items = this.element.querySelectorAll('bs-carousel-item');
 
     return ([
-      this.renderWithIndicators(),
+      this.renderWithIndicators(items.length),
       <div class="carousel-inner">
         <slot />
       </div>,
@@ -163,12 +156,14 @@ export class Carousel {
 
   private setId(id: string) {
     const typ = document.createAttribute('id');
+
     typ.value = id;
     this.element.attributes.setNamedItem(typ);
   }
 
   private setProperty(name: string, value: string) {
     const typ = document.createAttribute('data-' + name);
+
     typ.value = value;
     this.element.attributes.setNamedItem(typ);
   }

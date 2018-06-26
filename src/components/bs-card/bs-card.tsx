@@ -1,6 +1,6 @@
-import { Component, Element, Prop, PropDidChange, PropWillChange } from '@stencil/core';
+import { Component, Element, Prop, Watch } from '@stencil/core';
 
-import { themeDidChange, themeWillChange } from '../../util/functions';
+import { themeChanged } from '../../util/functions';
 
 @Component({
   tag: 'bs-card',
@@ -34,26 +34,21 @@ export class Card {
   @Prop()
   theme: string = '';
 
-  @PropDidChange('theme')
-  didThemeChangeHandler(theme: string) {
-    themeDidChange(this.element, this.theme, 'bg');
+  @Watch('theme')
+  themeChanged(newTheme: string, oldTheme) {
+    themeChanged(this.element, newTheme, oldTheme, 'bg');
 
     this.element.classList.remove('text-white');
 
-    if (theme && theme !== 'light') {
+    if (newTheme && newTheme !== 'light') {
       this.element.classList.add('text-white');
     }
-  }
-
-  @PropWillChange('theme')
-  willThemeChangeHandler(theme: string) {
-    themeWillChange(this.element, this.theme, 'bg');
   }
 
   componentWillLoad() {
     this.element.classList.add('card');
 
-    this.didThemeChangeHandler(this.theme);
+    this.themeChanged(this.theme, null);
   }
 
   renderBody() {
